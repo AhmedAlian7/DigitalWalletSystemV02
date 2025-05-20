@@ -187,7 +187,23 @@ void AdminWidget::onAddUser() {
 
 void AdminWidget::onDeleteUser(int row) {
 
+    QString username = ui.tableWidget->item(row, 0)->text();
 
+    QMessageBox::StandardButton reply = QMessageBox::question(
+        this,
+        "Confirm Delete",
+        "Are you sure you want to delete user '" + username + "'?",
+        QMessageBox::Yes | QMessageBox::No
+    );
+
+    if (reply == QMessageBox::Yes) {
+        Database DB;
+
+        DB.deleteUser(username.toStdString());
+
+        QMessageBox::information(this, "Success", "User has been deleted successfully.");
+
+    }
 
 }
 void AdminWidget::onViewTransactions(int row) {
