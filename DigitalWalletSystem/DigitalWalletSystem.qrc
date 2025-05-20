@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/DigitalWalletSystem">
+        <file>icons/down-arrow.png</file>
+        <file>icons/icons8-exchange-20.png</file>
+        <file>icons/icons8-hand-holding-dollar-24.png</file>
+        <file>icons/icons8-hand-holding-dollar-32 (1).png</file>
+        <file>icons/icons8-home-20.png</file>
+        <file>icons/icons8-logout-30.png</file>
+        <file>icons/icons8-notification-24.png</file>
+        <file>icons/icons8-paper-plane-50 (2).png</file>
+        <file>icons/up-arrow.png</file>
+        <file>icons/User Male.png</file>
+        <file>icons/Wallet.png</file>
+        <file>icons/Wallet1.png</file>
+    </qresource>
+</RCC>

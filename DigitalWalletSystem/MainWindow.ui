@@ -1,0 +1,1993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindowClass</class>
+ <widget class="QMainWindow" name="MainWindowClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1121</width>
+    <height>644</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="whatsThis">
+   <string>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;PayEase - Digital Payment App&lt;/title&gt;
+    &lt;style&gt;
+        :root {
+            --primary: #6c5ce7;
+            --primary-light: #a29bfe;
+            --secondary: #0984e3;
+            --accent: #00cec9;
+            --light: #f5f6fa;
+            --dark: #2d3436;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --gray: #b2bec3;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --radius: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark);
+            height: 100vh;
+            display: flex;
+        }
+        
+        .app-container {
+            display: flex;
+            width: 100%;
+            max-width: 1400px;
+            margin: auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 3rem;
+        }
+        
+        .logo-icon {
+            background: white;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            flex-grow: 1;
+        }
+        
+        .nav-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: var(--radius);
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+        }
+        
+        .nav-link i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .user-info {
+            flex-grow: 1;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .user-status {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--light);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            outline: none;
+            flex-grow: 1;
+        }
+        
+        .balance-cards {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            flex: 1;
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .card.primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-title {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .balance-amount {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .balance-info {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .btn i {
+            font-size: 1.2rem;
+        }
+        
+        .transactions-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .section-action {
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .transaction-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .transaction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .transaction-item:hover {
+            background-color: var(--light);
+        }
+        
+        .transaction-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .icon-sent {
+            background-color: rgba(255, 107, 107, 0.1);
+            color: var(--danger);
+        }
+        
+        .icon-received {
+            background-color: rgba(46, 213, 115, 0.1);
+            color: var(--success);
+        }
+        
+        .transaction-info {
+            flex-grow: 1;
+        }
+        
+        .transaction-title {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+        
+        .transaction-subtitle {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        .transaction-amount {
+            font-weight: 600;
+        }
+        
+        .amount-sent {
+            color: var(--danger);
+        }
+        
+        .amount-received {
+            color: var(--success);
+        }
+        
+        /* Modal for send/request money */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2rem;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--gray);
+            border-radius: var(--radius);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+            
+            .nav-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+            
+            .nav-item {
+                flex-shrink: 0;
+            }
+            
+            .user-profile {
+                display: none;
+            }
+            
+            .balance-cards {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    &lt;/style&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class=&quot;app-container&quot;&gt;
+        &lt;!-- Sidebar --&gt;
+        &lt;div class=&quot;sidebar&quot;&gt;
+            &lt;div class=&quot;logo&quot;&gt;
+                &lt;div class=&quot;logo-icon&quot;&gt;P&lt;/div&gt;
+                &lt;div class=&quot;logo-text&quot;&gt;PayEase&lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;ul class=&quot;nav-menu&quot;&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;nav-link active&quot;&gt;
+                        &lt;i class=&quot;fas fa-home&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;Dashboard&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;nav-link&quot;&gt;
+                        &lt;i class=&quot;fas fa-wallet&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;My Balance&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;nav-link&quot;&gt;
+                        &lt;i class=&quot;fas fa-exchange-alt&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;Transactions&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;nav-link&quot; style=&quot;position: relative;&quot;&gt;
+                        &lt;i class=&quot;fas fa-bell&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;Money Requests&lt;/span&gt;
+                        &lt;span style=&quot;position: absolute; top: 8px; right: 14px; background: var(--danger); color: white; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.7rem;&quot;&gt;3&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;nav-link&quot;&gt;
+                        &lt;i class=&quot;fas fa-user&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;Profile&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;nav-link&quot;&gt;
+                        &lt;i class=&quot;fas fa-cog&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;Settings&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li class=&quot;nav-item&quot;&gt;
+                    &lt;a href=&quot;#&quot; class=&quot;nav-link&quot;&gt;
+                        &lt;i class=&quot;fas fa-sign-out-alt&quot;&gt;&lt;/i&gt;
+                        &lt;span&gt;Logout&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            
+            &lt;div class=&quot;user-profile&quot;&gt;
+                &lt;div class=&quot;user-avatar&quot;&gt;JD&lt;/div&gt;
+                &lt;div class=&quot;user-info&quot;&gt;
+                    &lt;div class=&quot;user-name&quot;&gt;John Doe&lt;/div&gt;
+                    &lt;div class=&quot;user-status&quot;&gt;Online&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- Main Content --&gt;
+        &lt;div class=&quot;main-content&quot;&gt;
+            &lt;div class=&quot;header&quot;&gt;
+                &lt;h1 class=&quot;page-title&quot;&gt;Dashboard&lt;/h1&gt;
+                &lt;div class=&quot;search-bar&quot;&gt;
+                    &lt;i class=&quot;fas fa-search&quot;&gt;&lt;/i&gt;
+                    &lt;input type=&quot;text&quot; placeholder=&quot;Search...&quot;&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;div class=&quot;balance-cards&quot;&gt;
+                &lt;div class=&quot;card primary&quot;&gt;
+                    &lt;div class=&quot;card-header&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt;Current Balance&lt;/div&gt;
+                        &lt;div class=&quot;card-icon&quot;&gt;
+                            &lt;i class=&quot;fas fa-wallet&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-content&quot;&gt;
+                        &lt;div class=&quot;balance-amount&quot;&gt;$2,495.50&lt;/div&gt;
+                        &lt;div class=&quot;balance-info&quot;&gt;Available funds&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;div class=&quot;card-header&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt;Sent This Month&lt;/div&gt;
+                        &lt;div class=&quot;card-icon&quot; style=&quot;background: rgba(214, 48, 49, 0.1); color: var(--danger)&quot;&gt;
+                            &lt;i class=&quot;fas fa-arrow-up&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-content&quot;&gt;
+                        &lt;div class=&quot;balance-amount&quot;&gt;$758.20&lt;/div&gt;
+                        &lt;div class=&quot;balance-info&quot;&gt;4 transactions&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;div class=&quot;card&quot;&gt;
+                    &lt;div class=&quot;card-header&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt;Received This Month&lt;/div&gt;
+                        &lt;div class=&quot;card-icon&quot; style=&quot;background: rgba(0, 184, 148, 0.1); color: var(--success)&quot;&gt;
+                            &lt;i class=&quot;fas fa-arrow-down&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-content&quot;&gt;
+                        &lt;div class=&quot;balance-amount&quot;&gt;$1,240.00&lt;/div&gt;
+                        &lt;div class=&quot;balance-info&quot;&gt;6 transactions&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;div class=&quot;card&quot; style=&quot;position: relative;&quot;&gt;
+                    &lt;div class=&quot;notification-badge&quot; style=&quot;position: absolute; top: -10px; right: -10px; background: var(--danger); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;&quot;&gt;3&lt;/div&gt;
+                    &lt;div class=&quot;card-header&quot;&gt;
+                        &lt;div class=&quot;card-title&quot;&gt;Pending Requests&lt;/div&gt;
+                        &lt;div class=&quot;card-icon&quot; style=&quot;background: rgba(253, 203, 110, 0.1); color: var(--warning)&quot;&gt;
+                            &lt;i class=&quot;fas fa-bell&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;card-content&quot;&gt;
+                        &lt;div class=&quot;balance-amount&quot;&gt;$185.75&lt;/div&gt;
+                        &lt;div class=&quot;balance-info&quot;&gt;&lt;span style=&quot;color: var(--warning); font-weight: 500;&quot;&gt;3 requests&lt;/span&gt; awaiting action&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;div class=&quot;action-buttons&quot;&gt;
+                &lt;button class=&quot;btn btn-primary&quot; id=&quot;sendMoneyBtn&quot;&gt;
+                    &lt;i class=&quot;fas fa-paper-plane&quot;&gt;&lt;/i&gt;
+                    &lt;span&gt;Send Money&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;btn btn-secondary&quot; id=&quot;requestMoneyBtn&quot;&gt;
+                    &lt;i class=&quot;fas fa-hand-holding-usd&quot;&gt;&lt;/i&gt;
+                    &lt;span&gt;Request Money&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;btn btn-secondary&quot; id=&quot;viewRequestsBtn&quot; style=&quot;position: relative;&quot;&gt;
+                    &lt;i class=&quot;fas fa-bell&quot;&gt;&lt;/i&gt;
+                    &lt;span&gt;Pending Requests&lt;/span&gt;
+                    &lt;span style=&quot;position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.7rem;&quot;&gt;3&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;btn btn-secondary&quot;&gt;
+                    &lt;i class=&quot;fas fa-history&quot;&gt;&lt;/i&gt;
+                    &lt;span&gt;Transaction History&lt;/span&gt;
+                &lt;/button&gt;
+                &lt;button class=&quot;btn btn-secondary&quot;&gt;
+                    &lt;i class=&quot;fas fa-user-edit&quot;&gt;&lt;/i&gt;
+                    &lt;span&gt;Edit Profile&lt;/span&gt;
+                &lt;/button&gt;
+            &lt;/div&gt;
+            
+            &lt;div class=&quot;transactions-section&quot;&gt;
+                &lt;div class=&quot;section-header&quot;&gt;
+                    &lt;h2 class=&quot;section-title&quot;&gt;Recent Transactions&lt;/h2&gt;
+                    &lt;div class=&quot;section-action&quot;&gt;View All&lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;div class=&quot;transaction-list&quot;&gt;
+                    &lt;div class=&quot;transaction-item&quot;&gt;
+                        &lt;div class=&quot;transaction-icon icon-sent&quot;&gt;
+                            &lt;i class=&quot;fas fa-arrow-up&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-info&quot;&gt;
+                            &lt;div class=&quot;transaction-title&quot;&gt;Sent to Sarah Johnson&lt;/div&gt;
+                            &lt;div class=&quot;transaction-subtitle&quot;&gt;May 05, 2025 • 14:30&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-amount amount-sent&quot;&gt;-$125.00&lt;/div&gt;
+                    &lt;/div&gt;
+                    
+                    &lt;div class=&quot;transaction-item&quot;&gt;
+                        &lt;div class=&quot;transaction-icon icon-received&quot;&gt;
+                            &lt;i class=&quot;fas fa-arrow-down&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-info&quot;&gt;
+                            &lt;div class=&quot;transaction-title&quot;&gt;Received from Alex Miller&lt;/div&gt;
+                            &lt;div class=&quot;transaction-subtitle&quot;&gt;May 04, 2025 • 09:15&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-amount amount-received&quot;&gt;+$350.00&lt;/div&gt;
+                    &lt;/div&gt;
+                    
+                    &lt;div class=&quot;transaction-item&quot;&gt;
+                        &lt;div class=&quot;transaction-icon icon-sent&quot;&gt;
+                            &lt;i class=&quot;fas fa-arrow-up&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-info&quot;&gt;
+                            &lt;div class=&quot;transaction-title&quot;&gt;Sent to Michael Chen&lt;/div&gt;
+                            &lt;div class=&quot;transaction-subtitle&quot;&gt;May 03, 2025 • 18:22&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-amount amount-sent&quot;&gt;-$75.50&lt;/div&gt;
+                    &lt;/div&gt;
+                    
+                    &lt;div class=&quot;transaction-item&quot;&gt;
+                        &lt;div class=&quot;transaction-icon icon-received&quot;&gt;
+                            &lt;i class=&quot;fas fa-arrow-down&quot;&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-info&quot;&gt;
+                            &lt;div class=&quot;transaction-title&quot;&gt;Received from Emily Parker&lt;/div&gt;
+                            &lt;div class=&quot;transaction-subtitle&quot;&gt;May 01, 2025 • 12:40&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div class=&quot;transaction-amount amount-received&quot;&gt;+$210.00&lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Send Money Modal --&gt;
+    &lt;div class=&quot;modal-overlay&quot; id=&quot;sendMoneyModal&quot;&gt;
+        &lt;div class=&quot;modal&quot;&gt;
+            &lt;div class=&quot;modal-header&quot;&gt;
+                &lt;h2 class=&quot;modal-title&quot;&gt;Send Money&lt;/h2&gt;
+                &lt;button class=&quot;modal-close&quot;&gt;&amp;times;&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;modal-body&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;form-label&quot;&gt;Recipient's Username&lt;/label&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Enter username&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;form-label&quot;&gt;Amount&lt;/label&gt;
+                    &lt;input type=&quot;number&quot; class=&quot;form-control&quot; placeholder=&quot;0.00&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;form-label&quot;&gt;Note (Optional)&lt;/label&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;What's this for?&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;modal-actions&quot;&gt;
+                    &lt;button class=&quot;btn btn-secondary modal-close-btn&quot;&gt;Cancel&lt;/button&gt;
+                    &lt;button class=&quot;btn btn-primary&quot;&gt;Send Now&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Request Money Modal --&gt;
+    &lt;div class=&quot;modal-overlay&quot; id=&quot;requestMoneyModal&quot;&gt;
+        &lt;div class=&quot;modal&quot;&gt;
+            &lt;div class=&quot;modal-header&quot;&gt;
+                &lt;h2 class=&quot;modal-title&quot;&gt;Request Money&lt;/h2&gt;
+                &lt;button class=&quot;modal-close&quot;&gt;&amp;times;&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;modal-body&quot;&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;form-label&quot;&gt;From Username&lt;/label&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;Enter username&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;form-label&quot;&gt;Amount&lt;/label&gt;
+                    &lt;input type=&quot;number&quot; class=&quot;form-control&quot; placeholder=&quot;0.00&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;form-group&quot;&gt;
+                    &lt;label class=&quot;form-label&quot;&gt;Reason (Optional)&lt;/label&gt;
+                    &lt;input type=&quot;text&quot; class=&quot;form-control&quot; placeholder=&quot;What's this for?&quot;&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;modal-actions&quot;&gt;
+                    &lt;button class=&quot;btn btn-secondary modal-close-btn&quot;&gt;Cancel&lt;/button&gt;
+                    &lt;button class=&quot;btn btn-primary&quot;&gt;Request Now&lt;/button&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- View Pending Requests Modal --&gt;
+    &lt;div class=&quot;modal-overlay&quot; id=&quot;viewRequestsModal&quot;&gt;
+        &lt;div class=&quot;modal&quot; style=&quot;width: 450px;&quot;&gt;
+            &lt;div class=&quot;modal-header&quot;&gt;
+                &lt;h2 class=&quot;modal-title&quot;&gt;Pending Money Requests&lt;/h2&gt;
+                &lt;button class=&quot;modal-close&quot;&gt;&amp;times;&lt;/button&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;modal-body&quot;&gt;
+                &lt;div style=&quot;max-height: 350px; overflow-y: auto;&quot;&gt;
+                    &lt;!-- Request Item 1 --&gt;
+                    &lt;div style=&quot;padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem; border: 1px solid var(--light); box-shadow: 0 2px 4px rgba(0,0,0,0.05);&quot;&gt;
+                        &lt;div style=&quot;display: flex; justify-content: space-between; margin-bottom: 0.5rem;&quot;&gt;
+                            &lt;div style=&quot;font-weight: 500;&quot;&gt;Alex Miller&lt;/div&gt;
+                            &lt;div style=&quot;color: var(--dark); font-weight: 600;&quot;&gt;$75.00&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div style=&quot;display: flex; justify-content: space-between; margin-bottom: 0.5rem;&quot;&gt;
+                            &lt;div style=&quot;font-size: 0.85rem; color: var(--gray);&quot;&gt;Lunch payment&lt;/div&gt;
+                            &lt;div style=&quot;font-size: 0.85rem; color: var(--gray);&quot;&gt;May 6, 2025&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div style=&quot;display: flex; gap: 0.5rem; margin-top: 0.8rem;&quot;&gt;
+                            &lt;button class=&quot;btn btn-primary&quot; style=&quot;padding: 0.5rem 1rem; flex: 1;&quot;&gt;Pay Now&lt;/button&gt;
+                            &lt;button class=&quot;btn btn-secondary&quot; style=&quot;padding: 0.5rem 1rem; flex: 1;&quot;&gt;Decline&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    
+                    &lt;!-- Request Item 2 --&gt;
+                    &lt;div style=&quot;padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem; border: 1px solid var(--light); box-shadow: 0 2px 4px rgba(0,0,0,0.05);&quot;&gt;
+                        &lt;div style=&quot;display: flex; justify-content: space-between; margin-bottom: 0.5rem;&quot;&gt;
+                            &lt;div style=&quot;font-weight: 500;&quot;&gt;Sarah Johnson&lt;/div&gt;
+                            &lt;div style=&quot;color: var(--dark); font-weight: 600;&quot;&gt;$35.75&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div style=&quot;display: flex; justify-content: space-between; margin-bottom: 0.5rem;&quot;&gt;
+                            &lt;div style=&quot;font-size: 0.85rem; color: var(--gray);&quot;&gt;Movie tickets&lt;/div&gt;
+                            &lt;div style=&quot;font-size: 0.85rem; color: var(--gray);&quot;&gt;May 5, 2025&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div style=&quot;display: flex; gap: 0.5rem; margin-top: 0.8rem;&quot;&gt;
+                            &lt;button class=&quot;btn btn-primary&quot; style=&quot;padding: 0.5rem 1rem; flex: 1;&quot;&gt;Pay Now&lt;/button&gt;
+                            &lt;button class=&quot;btn btn-secondary&quot; style=&quot;padding: 0.5rem 1rem; flex: 1;&quot;&gt;Decline&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    
+                    &lt;!-- Request Item 3 --&gt;
+                    &lt;div style=&quot;padding: 1rem; border-radius: var(--radius); margin-bottom: 1rem; border: 1px solid var(--light); box-shadow: 0 2px 4px rgba(0,0,0,0.05);&quot;&gt;
+                        &lt;div style=&quot;display: flex; justify-content: space-between; margin-bottom: 0.5rem;&quot;&gt;
+                            &lt;div style=&quot;font-weight: 500;&quot;&gt;Michael Chen&lt;/div&gt;
+                            &lt;div style=&quot;color: var(--dark); font-weight: 600;&quot;&gt;$75.00&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div style=&quot;display: flex; justify-content: space-between; margin-bottom: 0.5rem;&quot;&gt;
+                            &lt;div style=&quot;font-size: 0.85rem; color: var(--gray);&quot;&gt;Group gift contribution&lt;/div&gt;
+                            &lt;div style=&quot;font-size: 0.85rem; color: var(--gray);&quot;&gt;May 4, 2025&lt;/div&gt;
+                        &lt;/div&gt;
+                        &lt;div style=&quot;display: flex; gap: 0.5rem; margin-top: 0.8rem;&quot;&gt;
+                            &lt;button class=&quot;btn btn-primary&quot; style=&quot;padding: 0.5rem 1rem; flex: 1;&quot;&gt;Pay Now&lt;/button&gt;
+                            &lt;button class=&quot;btn btn-secondary&quot; style=&quot;padding: 0.5rem 1rem; flex: 1;&quot;&gt;Decline&lt;/button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;script&gt;
+        // Show/Hide modals
+        const sendMoneyBtn = document.getElementById('sendMoneyBtn');
+        const requestMoneyBtn = document.getElementById('requestMoneyBtn');
+        const viewRequestsBtn = document.getElementById('viewRequestsBtn');
+        const sendMoneyModal = document.getElementById('sendMoneyModal');
+        const requestMoneyModal = document.getElementById('requestMoneyModal');
+        const viewRequestsModal = document.getElementById('viewRequestsModal');
+        const modalCloseButtons = document.querySelectorAll('.modal-close, .modal-close-btn');
+        
+        sendMoneyBtn.addEventListener('click', () =&gt; {
+            sendMoneyModal.classList.add('active');
+        });
+        
+        requestMoneyBtn.addEventListener('click', () =&gt; {
+            requestMoneyModal.classList.add('active');
+        });
+        
+        viewRequestsBtn.addEventListener('click', () =&gt; {
+            viewRequestsModal.classList.add('active');
+        });
+        
+        modalCloseButtons.forEach(button =&gt; {
+            button.addEventListener('click', () =&gt; {
+                sendMoneyModal.classList.remove('active');
+                requestMoneyModal.classList.remove('active');
+                viewRequestsModal.classList.remove('active');
+            });
+        });
+        
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) =&gt; {
+            if (e.target === sendMoneyModal) {
+                sendMoneyModal.classList.remove('active');
+            }
+            if (e.target === requestMoneyModal) {
+                requestMoneyModal.classList.remove('active');
+            }
+            if (e.target === viewRequestsModal) {
+                viewRequestsModal.classList.remove('active');
+            }
+        });
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+/* Style for all buttons except Dashboard */
+QPushButton {
+    color: white;
+    background-color: transparent;
+    text-align: left;
+    padding: 10px;
+}
+
+QPushButton::hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+}</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QWidget" name="sidebarWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>241</width>
+      <height>601</height>
+     </rect>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>200</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: #5B6DF8;</string>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>9</y>
+       <width>174</width>
+       <height>36</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>20</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;</string>
+     </property>
+     <property name="text">
+      <string>Digital Wallet</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="dashboardButton">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>80</y>
+       <width>221</width>
+       <height>42</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    background-color: #4C68FF;
+    color: white;
+
+    border-radius: 10px;
+    text-align: left;
+}
+QPushButton:hover {
+    background-color: #3B55D8;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>  Home</string>
+     </property>
+     <property name="icon">
+      <iconset resource="DigitalWalletSystem.qrc">
+       <normaloff>:/DigitalWalletSystem/icons/icons8-home-20.png</normaloff>:/DigitalWalletSystem/icons/icons8-home-20.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="transactionsButton">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>140</y>
+       <width>221</width>
+       <height>42</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    background-color: #4C68FF;
+    color: white;
+
+    border-radius: 10px;
+    text-align: left;
+}
+QPushButton:hover {
+    background-color: #3B55D8;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>  Transactions</string>
+     </property>
+     <property name="icon">
+      <iconset resource="DigitalWalletSystem.qrc">
+       <normaloff>:/DigitalWalletSystem/icons/icons8-exchange-20.png</normaloff>:/DigitalWalletSystem/icons/icons8-exchange-20.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="profileButton">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>200</y>
+       <width>221</width>
+       <height>42</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    background-color: #4C68FF;
+    color: white;
+    border-radius: 10px;
+    text-align: left;
+}
+QPushButton:hover {
+    background-color: #3B55D8;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>  Profile</string>
+     </property>
+     <property name="icon">
+      <iconset resource="DigitalWalletSystem.qrc">
+       <normaloff>:/DigitalWalletSystem/icons/User Male.png</normaloff>:/DigitalWalletSystem/icons/User Male.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="logoutButton">
+     <property name="geometry">
+      <rect>
+       <x>9</x>
+       <y>520</y>
+       <width>221</width>
+       <height>42</height>
+      </rect>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI</family>
+       <pointsize>12</pointsize>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    background-color: #4C68FF;
+    color: white;
+    border-radius: 10px;
+    text-align: left;
+}
+QPushButton:hover {
+    background-color: #3B55D8;
+}
+</string>
+     </property>
+     <property name="text">
+      <string>  Logout</string>
+     </property>
+     <property name="icon">
+      <iconset resource="DigitalWalletSystem.qrc">
+       <normaloff>:/DigitalWalletSystem/icons/icons8-logout-30.png</normaloff>:/DigitalWalletSystem/icons/icons8-logout-30.png</iconset>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>24</width>
+       <height>24</height>
+      </size>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>0</y>
+      <width>881</width>
+      <height>591</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="Dashboard">
+     <widget class="QFrame" name="balanceCard">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>251</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #5557D3; color: white; border-radius: 10px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>141</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Current Balalnce</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_3">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>20</y>
+         <width>51</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"> background-color: white; color: #5557D3; border-radius: 25px; width:20;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="DigitalWalletSystem.qrc">:/DigitalWalletSystem/icons/Wallet1.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblCurrentBalance">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>70</y>
+         <width>221</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>20</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>$2,495.50</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>110</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Available funds</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>831</width>
+        <height>54</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="pageTitle">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>20</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: white;</string>
+         </property>
+         <property name="text">
+          <string>Dashboard </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="searchBox">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>300</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 12px;
+background-color: #f5f5f5;
+color: black;
+font: 10pt;
+text-align:5px</string>
+         </property>
+         <property name="inputMask">
+          <string/>
+         </property>
+         <property name="frame">
+          <bool>false</bool>
+         </property>
+         <property name="placeholderText">
+          <string>Search...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QFrame" name="sentCard">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>90</y>
+        <width>251</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #5557D3; color: white; border-radius: 10px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_8">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>141</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Sent This Month</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_9">
+       <property name="geometry">
+        <rect>
+         <x>180</x>
+         <y>20</y>
+         <width>51</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #d63031c2; color: #5557D3; border-radius: 25px; width:20;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="DigitalWalletSystem.qrc">:/DigitalWalletSystem/icons/up-arrow.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblSentthisMonth">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>70</y>
+         <width>221</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>20</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>$758.20</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblSentTransactions">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>110</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>4 transactions</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="receivedCard">
+      <property name="geometry">
+       <rect>
+        <x>600</x>
+        <y>90</y>
+        <width>261</width>
+        <height>161</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: #5557D3; color: white; border-radius: 10px;</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::Shape::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Shadow::Raised</enum>
+      </property>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>161</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>Received This Month
+</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>190</x>
+         <y>20</y>
+         <width>51</width>
+         <height>51</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #d63031c2; color: #5557D3; border-radius: 25px; width:20;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="DigitalWalletSystem.qrc">:/DigitalWalletSystem/icons/down-arrow.png</pixmap>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblReceivedThisMonth">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>70</y>
+         <width>221</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>20</pointsize>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>$1,240.00</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblReceivedTransactions">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>110</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI</family>
+         <pointsize>9</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <property name="text">
+        <string>6 transactions</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::TextFormat::RichText</enum>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QPushButton" name="sendMoneyButton">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>280</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>9</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    padding: 8px 14px;
+    border: 1px solid #999;
+    background-color: #c1c1c1;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>   Send Money</string>
+      </property>
+      <property name="icon">
+       <iconset resource="DigitalWalletSystem.qrc">
+        <normaloff>:/DigitalWalletSystem/icons/icons8-paper-plane-50 (2).png</normaloff>:/DigitalWalletSystem/icons/icons8-paper-plane-50 (2).png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="requestMoneyButton">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>280</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>9</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    padding: 8px 14px;
+    border: 1px solid #999;
+    background-color: #c1c1c1;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>   Request Money</string>
+      </property>
+      <property name="icon">
+       <iconset resource="DigitalWalletSystem.qrc">
+        <normaloff>:/DigitalWalletSystem/icons/icons8-hand-holding-dollar-32 (1).png</normaloff>:/DigitalWalletSystem/icons/icons8-hand-holding-dollar-32 (1).png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="PendingRequestsButton">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>280</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>9</pointsize>
+        <italic>false</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 6px 12px;
+}
+
+QPushButton:hover {
+    padding: 8px 14px;
+    border: 1px solid #999;
+    background-color: #c1c1c1;
+}
+</string>
+      </property>
+      <property name="text">
+       <string>   Pending Requests</string>
+      </property>
+      <property name="icon">
+       <iconset resource="DigitalWalletSystem.qrc">
+        <normaloff>:/DigitalWalletSystem/icons/icons8-notification-24.png</normaloff>:/DigitalWalletSystem/icons/icons8-notification-24.png</iconset>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>24</width>
+        <height>24</height>
+       </size>
+      </property>
+     </widget>
+     <widget class="QListWidget" name="listTransactions">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>370</y>
+        <width>831</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="pageTitle_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>330</y>
+        <width>261</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>16</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
+      <property name="text">
+       <string>Recent Transactions</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Transactions">
+     <widget class="QWidget" name="widget_5" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>831</width>
+        <height>54</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="pageTitle_6">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>20</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: white;</string>
+         </property>
+         <property name="text">
+          <string>Transactions</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="searchBox_5">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>300</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 12px;
+background-color: #f5f5f5;
+color: black;
+font: 10pt;</string>
+         </property>
+         <property name="placeholderText">
+          <string>Search...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="Profile">
+     <widget class="QWidget" name="widget_4" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>831</width>
+        <height>54</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <item>
+        <widget class="QLabel" name="pageTitle_5">
+         <property name="font">
+          <font>
+           <family>Segoe UI</family>
+           <pointsize>20</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: white;</string>
+         </property>
+         <property name="text">
+          <string>Profile</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="searchBox_4">
+         <property name="minimumSize">
+          <size>
+           <width>200</width>
+           <height>30</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>300</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">border-radius: 12px;
+background-color: #f5f5f5;
+color: black;
+font: 10pt;</string>
+         </property>
+         <property name="placeholderText">
+          <string>Search...</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1121</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="DigitalWalletSystem.qrc"/>
+ </resources>
+ <connections/>
+</ui>
