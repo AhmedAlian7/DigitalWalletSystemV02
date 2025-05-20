@@ -216,7 +216,10 @@ void AdminWidget::onDeleteUser(int row) {
 
         QMessageBox::information(this, "Success", "User has been deleted successfully.");
 
+
     }
+    
+    loadUsersToTable();
 
 }
 void AdminWidget::onViewTransactions(int row) {

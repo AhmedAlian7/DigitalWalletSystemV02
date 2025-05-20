@@ -166,6 +166,15 @@ void Database::deleteUser(string username) {
 
 
 
+
+
+
+
+
+
+
+
+
 // Transactions CRUD Operations
 
 vector<Transaction> Database::loadTransactionsFor(string username) {
@@ -191,11 +200,11 @@ vector<Transaction> Database::loadTransactionsFor(string username) {
 
 
                 if (!note.empty()) {
-                    Transaction transaction(sender, receiver, stod(amountStr), note);
+                    Transaction transaction(sender, receiver, stod(amountStr), QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss"), note);
                     transactions.push_back(transaction);
                 }
                 else {
-                    Transaction transaction(sender, receiver, stod(amountStr));
+                    Transaction transaction(sender, receiver, stod(amountStr), QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss"));
                     transactions.push_back(transaction);
                 }
 
@@ -204,7 +213,7 @@ vector<Transaction> Database::loadTransactionsFor(string username) {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename ;
     }
 
     return transactions;
