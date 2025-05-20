@@ -1,7 +1,7 @@
 #pragma once
 #include<iostream>
 #include <string>
-#include <ctime>
+#include <QDate>
 #include "Utilities/clsDate.h"
 using namespace std;
 
@@ -12,13 +12,13 @@ public:
 	string sender;
 	string receiver;
 	double amount;
-	clsDate date;
+	QDateTime date;
 	string note;
 
 	Transaction(string sender, string receiver, double amount);
-	Transaction(string sender, string receiver, double amount, clsDate transactionTime);
+	Transaction(string sender, string receiver, double amount, QDateTime transactionTime);
 	Transaction(string sender, string receiver, double amount, string note);
-	Transaction(string sender, string receiver, double amount, clsDate	 transactionTime, string note);
+	Transaction(string sender, string receiver, double amount, QDateTime transactionTime, string note);
 
 	~Transaction();
 };

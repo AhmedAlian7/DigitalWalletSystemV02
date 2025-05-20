@@ -184,12 +184,11 @@ bool User::isUsernameAvailable(string username) {
 
 bool User::isCurrentMonth(Transaction& transaction) {
 
-    clsDate now = clsDate::GetSystemDate();
-    short transactionMonth = transaction.date.Month;
-    short transactionYear = transaction.date.Year;
+    QDateTime now = QDateTime::currentDateTime();
+    int currentMonth = now.date().month();
+    int currentYear = now.date().year();
 
-
-    return (now.Month == transactionMonth && now.Year == transactionYear);
+    return (transaction.date.date().month() == currentMonth && transaction.date.date().year() == currentYear);
 }
 
 // Method to get total amount sent this month and count of sent transactions

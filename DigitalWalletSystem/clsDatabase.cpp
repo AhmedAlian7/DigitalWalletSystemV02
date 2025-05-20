@@ -294,7 +294,7 @@ void Database::addTransaction(Transaction transaction) {
         file << transaction.sender << ","
             << transaction.receiver << ","
             << transaction.amount << ","
-            << transaction.date.DateToString() << ","
+            << transaction.date.toString("yyyy-MM-dd hh:mm:ss").toStdString() << ","
             << transaction.note << endl;
     }
     else {
@@ -321,7 +321,8 @@ void Database::deleteTransactionFor(string username) {
             getline(ss, amountStr, ',');
             getline(ss, dateStr, ',');
             getline(ss, note);
-            clsDate date = clsDate(dateStr);
+            QDateTime date = QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss");
+
             if (sender != username && receiver != username) {
                 Transaction transaction(sender, receiver, stod(amountStr),date,note);
                 transactions.push_back(transaction);
@@ -366,7 +367,7 @@ vector<Transaction> Database::getAllTransactions() {
             getline(ss, amountStr, ',');
             getline(ss, dateStr, ',');
             getline(ss, note);
-            clsDate date(dateStr);
+            QDateTime date = QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss");
 
             Transaction transaction(sender, receiver, stod(amountStr), date, note);
             transactions.push_back(transaction);

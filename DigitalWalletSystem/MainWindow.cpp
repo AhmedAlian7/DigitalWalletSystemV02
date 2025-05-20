@@ -73,7 +73,7 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
             if (isSentTransation(t)) {
                 widget = createTransactionWidget(
                     "Sent to " + QString::fromStdString(t.receiver),
-                    QString::fromStdString(clsDate::DateToString(t.date)),
+                    t.date.toString("yyyy-MM-dd hh:mm:ss"),
                     "-$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
                     true
                 );
@@ -81,7 +81,7 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
             else {
                 widget = createTransactionWidget(
                     "Received from " + QString::fromStdString(t.sender),
-                    QString::fromStdString(clsDate::DateToString(t.date)),
+                    t.date.toString("yyyy-MM-dd hh:mm:ss"),
                     "+$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
                     false
                 );
