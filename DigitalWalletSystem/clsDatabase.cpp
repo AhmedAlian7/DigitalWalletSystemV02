@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include "Utilities/cslUtil.h"
+#include <list>
 
 
 Database::Database() {
@@ -42,9 +43,30 @@ bool Database::addUser(User& user) {
 
     user.password = clsUtil::cipherText(user.password);
     usersMap[user.username] = user;
-    saveUsersToFile();
+  //  saveUsersToFile();
+  SaveUser(user);
     return true;
 }
+
+void Database::SaveUser(User& user){
+
+ fstream file("users.txt", ios::app | ios::out);
+
+    if (!file.is_open()) {
+        qDebug() << "Error opening file to save users." ;
+        return;
+    }
+
+        file << user.username << ","
+            << user.password << ","
+            << user.balance << ","
+            << user.isSuspended << endl;
+
+    file.close();
+
+}
+
+
 
 User Database::getUser(string username) {
     if (usersMap.find(username) != usersMap.end())
@@ -56,7 +78,6 @@ unordered_map<string, User> Database::loadUsers() {
     fstream file;
     string filename = "users.txt";
     string line;
-    unordered_map<string, User> users;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -73,15 +94,15 @@ unordered_map<string, User> Database::loadUsers() {
 
             user.transactions = loadTransactionsFor(user.username);
 
-            users.insert(make_pair(userName,user));
+            usersMap.insert(make_pair(userName,user));
         }
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename ;
     }
 
-    return users;
+    return usersMap;
 }
 
 
@@ -92,38 +113,40 @@ void Database::updateUser(User user) {
 }
 
 
-void Database::SaveUsers(vector <User> users) {
- 
-    fstream file;
-    string filename = "users.txt";
-    string line;
-
-    file.open(filename, ios::out);
-
-    int size = users.size();
-
-    for (int i = 0; i < size;i++) {
 
 
-        if (file.is_open()) {
 
-            updateUser(users[i]);
-            file.close();
-
-        }
-    }
-
-
-}
 
 void Database::saveUsersToFile() {
     fstream file("users.txt", ios::out | ios::trunc);
     if (!file.is_open()) {
-        cout << "Error opening file to save users." << endl;
+        qDebug() << "Error opening file to save users." ;
         return;
     }
 
     for (const auto& [username, user] : usersMap) {
+        file << username << ","
+            << user.password << ","
+            << user.balance << ","
+            << user.isSuspended << endl;
+    }
+
+    file.close();
+}
+
+
+
+
+void Database::saveUsersToFile(unordered_map <string , User> & users) {
+
+
+    fstream file("users.txt", ios::out | ios::trunc);
+    if (!file.is_open()) {
+        qDebug() << "Error opening file to save users." ;
+        return;
+    }
+
+    for (const auto& [username, user] : users) {
         file << username << ","
             << user.password << ","
             << user.balance << ","
@@ -143,13 +166,22 @@ void Database::deleteUser(string username) {
 
 
 
+
+
+
+
+
+
+
+
+
 // Transactions CRUD Operations
 
-vector<Transaction> Database::loadTransactionsFor(string username) {
+list <Transaction> Database::loadTransactionsFor(string username) {
     fstream file;
     string filename = "transaction.txt";
     string line;
-    vector<Transaction> transactions;
+    list <Transaction> transactions;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -168,11 +200,11 @@ vector<Transaction> Database::loadTransactionsFor(string username) {
 
 
                 if (!note.empty()) {
-                    Transaction transaction(sender, receiver, stod(amountStr), note);
+                    Transaction transaction(sender, receiver, stod(amountStr), QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss"), note);
                     transactions.push_back(transaction);
                 }
                 else {
-                    Transaction transaction(sender, receiver, stod(amountStr));
+                    Transaction transaction(sender, receiver, stod(amountStr), QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss"));
                     transactions.push_back(transaction);
                 }
 
@@ -181,7 +213,7 @@ vector<Transaction> Database::loadTransactionsFor(string username) {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename ;
     }
 
     return transactions;
@@ -204,7 +236,7 @@ void Database::addTransaction(Transaction transaction) {
             << transaction.note << endl;
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
     }
 
     file.close();
@@ -214,7 +246,7 @@ void Database::deleteTransactionFor(string username) {
     fstream file;
     string filename = "transaction.txt";
     string line;
-    vector<Transaction> transactions;
+    list <Transaction> transactions;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -237,7 +269,7 @@ void Database::deleteTransactionFor(string username) {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
         return;
     }
 
@@ -251,15 +283,15 @@ void Database::deleteTransactionFor(string username) {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
     }
 }
 
-vector<Transaction> Database::getAllTransactions() {
+list <Transaction> Database::getAllTransactions() {
     fstream file;
     string filename = "transaction.txt";
     string line;
-    vector<Transaction> transactions;
+    list <Transaction> transactions;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -281,7 +313,7 @@ vector<Transaction> Database::getAllTransactions() {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
     }
 
     return transactions;

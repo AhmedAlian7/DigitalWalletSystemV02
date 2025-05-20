@@ -16,6 +16,7 @@ public:
 
 	Database();  // Load users from file at startup
 	void saveUsersToFile();
+	void saveUsersToFile(unordered_map <string , User> & users);
 
 	unordered_map<string, User> loadUsers();
 	User getUser(string username);
@@ -23,13 +24,15 @@ public:
 	void deleteUser(string username);
 	void updateUser(User user);
 
+	void SaveUser(User& user);
 
-	void SaveUsers(vector <User> users);
+	
+	
 	void addTransaction(Transaction transaction);
-	vector<Transaction> loadTransactionsFor(string username);
+	list <Transaction> loadTransactionsFor(string username);
 	void deleteTransactionFor(string username);
 	// getTransaction(string senderName)
 
-	vector<Transaction> getAllTransactions();
+	list <Transaction> getAllTransactions();
 };
 

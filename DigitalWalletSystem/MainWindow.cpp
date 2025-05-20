@@ -64,14 +64,24 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
 
     if (currentUser != nullptr) {
         Database db;
-        vector<Transaction> transactions = db.loadTransactionsFor(currentUser->username);
+        list<Transaction> transactions = db.loadTransactionsFor(currentUser->username);
         if (transactions.empty()) return;
-        int size = transactions.size() -1;
-        for (int i = size; i > size - transactionCount; --i) {
-            if (i < 0) return;
-            const Transaction& t = transactions[i];
+
+
+
+
+
+
+
+
+
+        int count = 0;
+        for (auto it = transactions.rbegin(); it != transactions.rend() && count < transactionCount; ++it, ++count) {
+            const Transaction& t = *it;
+
             QListWidgetItem* item = new QListWidgetItem(ui.listTransactions);
-            QWidget *widget;
+            QWidget* widget;
+
             if (isSentTransation(t)) {
                 widget = createTransactionWidget(
                     "Sent to " + QString::fromStdString(t.receiver),
@@ -88,6 +98,7 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
                     false
                 );
             }
+
             item->setSizeHint(widget->sizeHint());
             ui.listTransactions->setItemWidget(item, widget);
         }
@@ -95,6 +106,15 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
     else {
         qDebug() << "Warning: currentUser is null in loadRecentTransactions()";
     }
+
+
+
+
+
+
+
+
+
 
 }
 
