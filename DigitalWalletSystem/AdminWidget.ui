@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>621</width>
-    <height>526</height>
+    <width>824</width>
+    <height>536</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,8 +38,8 @@
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>20</y>
+       <x>9</x>
+       <y>9</y>
        <width>174</width>
        <height>36</height>
       </rect>
@@ -61,8 +61,8 @@
     <widget class="QPushButton" name="btnUsers">
      <property name="geometry">
       <rect>
-       <x>0</x>
-       <y>90</y>
+       <x>9</x>
+       <y>80</y>
        <width>221</width>
        <height>42</height>
       </rect>
@@ -117,7 +117,7 @@ QPushButton:hover {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>160</y>
+       <y>140</y>
        <width>221</width>
        <height>42</height>
       </rect>
@@ -259,9 +259,9 @@ QPushButton:hover {
      <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>20</y>
-        <width>701</width>
+        <width>551</width>
         <height>431</height>
        </rect>
       </property>
@@ -269,7 +269,7 @@ QPushButton:hover {
      <widget class="QPushButton" name="btnSave">
       <property name="geometry">
        <rect>
-        <x>290</x>
+        <x>480</x>
         <y>460</y>
         <width>81</width>
         <height>31</height>
@@ -563,7 +563,7 @@ font: 10pt;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>621</width>
+     <width>824</width>
      <height>21</height>
     </rect>
    </property>
