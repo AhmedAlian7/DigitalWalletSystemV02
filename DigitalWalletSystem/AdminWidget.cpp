@@ -25,7 +25,7 @@ AdminWidget::AdminWidget(QWidget *parent)
 
 
     Database DB;
-    vector<User>  users = DB.loadUsers();
+    unordered_map<string, User>  users = DB.loadUsers();
 
 
     setupTable();
@@ -55,12 +55,12 @@ void AdminWidget::loadUsersToTable()
 {
    
 	Database DB;
-    vector<User>  users = DB.loadUsers();
+    unordered_map<string, User>  users = DB.loadUsers();
 
     ui.tableWidget->setRowCount(users.size());
-
-    for (int i = 0; i < users.size(); ++i) {
-        const User& user = users[i];
+    int i = 0;
+    for (const auto& pair : users) {
+        const User& user = pair.second;
 
         // User Name - read-only
         QTableWidgetItem* usernameItem = new QTableWidgetItem(QString::fromStdString(user.username));
@@ -76,13 +76,14 @@ void AdminWidget::loadUsersToTable()
         statusCombo->addItems({ "Active", "Suspend" });
         statusCombo->setCurrentText(user.isSuspended ? "Suspend" : "Active");
         ui.tableWidget->setCellWidget(i, 2, statusCombo);
+        i++;
     }
 }
 
 void AdminWidget::showContextMenu(const QPoint& pos)
 {
 	Database DB;
-    vector<User>  users = DB.loadUsers();
+    unordered_map<string, User>  users = DB.loadUsers();
 
     QModelIndex index = ui.tableWidget->indexAt(pos);
     if (!index.isValid()) return;
@@ -118,7 +119,7 @@ void AdminWidget::saveChanges()
 
 	
     Database DB;
-    vector<User>  users = DB.loadUsers();
+    unordered_map<string, User>  users = DB.loadUsers();
 
 
     for (int i = 0; i < ui.tableWidget->rowCount(); ++i) {
@@ -128,10 +129,10 @@ void AdminWidget::saveChanges()
         bool isSuspended = (statusCombo && statusCombo->currentText() == "Suspend");
 
         // Find and update in users vector
-        for (auto& user : users) {
-            if (user.username == username.toStdString()) {
-                user.balance = balance;
-                user.isSuspended = isSuspended;
+        for (auto& pair : users) {
+            if (pair.first == username.toStdString()) {
+                pair.second.balance = balance;
+                pair.second.isSuspended = isSuspended;
                 break;
             }
         }

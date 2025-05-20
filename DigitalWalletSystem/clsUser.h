@@ -16,12 +16,6 @@ public:
     User(string username, string password);
     User(string username, string password, double balance, bool isSuspended);
 
-
-
-    // Authentication
-    User registerUser();
-    User loginUser();
-
     // Features
     double viewBalance();
     bool sendMoney(const string& to, double amount);
