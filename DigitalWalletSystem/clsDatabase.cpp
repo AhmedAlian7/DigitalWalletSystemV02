@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include "Utilities/cslUtil.h"
+#include <list>
 
 
 Database::Database() {
@@ -177,11 +178,11 @@ void Database::deleteUser(string username) {
 
 // Transactions CRUD Operations
 
-vector<Transaction> Database::loadTransactionsFor(string username) {
+list <Transaction> Database::loadTransactionsFor(string username) {
     fstream file;
     string filename = "transaction.txt";
     string line;
-    vector<Transaction> transactions;
+    list <Transaction> transactions;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -236,7 +237,7 @@ void Database::addTransaction(Transaction transaction) {
             << transaction.note << endl;
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
     }
 
     file.close();
@@ -246,7 +247,7 @@ void Database::deleteTransactionFor(string username) {
     fstream file;
     string filename = "transaction.txt";
     string line;
-    vector<Transaction> transactions;
+    list <Transaction> transactions;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -269,7 +270,7 @@ void Database::deleteTransactionFor(string username) {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
         return;
     }
 
@@ -283,15 +284,15 @@ void Database::deleteTransactionFor(string username) {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
     }
 }
 
-vector<Transaction> Database::getAllTransactions() {
+list <Transaction> Database::getAllTransactions() {
     fstream file;
     string filename = "transaction.txt";
     string line;
-    vector<Transaction> transactions;
+    list <Transaction> transactions;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -313,7 +314,7 @@ vector<Transaction> Database::getAllTransactions() {
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        qDebug() << "There is an error in opening file: " << filename;
     }
 
     return transactions;

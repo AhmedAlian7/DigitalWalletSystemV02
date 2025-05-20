@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "clsTransaction.h"
+#include <list>
 using namespace std;
 
 class User {
@@ -9,7 +10,7 @@ public:
     string username;
     string password;
     double balance = 0.0;
-    vector<Transaction> transactions;
+    list<Transaction> transactions;
     bool isSuspended = false;
 
     User();

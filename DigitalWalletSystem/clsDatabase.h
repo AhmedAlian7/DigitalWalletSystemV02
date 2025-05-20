@@ -29,10 +29,10 @@ public:
 	
 	
 	void addTransaction(Transaction transaction);
-	vector<Transaction> loadTransactionsFor(string username);
+	list <Transaction> loadTransactionsFor(string username);
 	void deleteTransactionFor(string username);
 	// getTransaction(string senderName)
 
-	vector<Transaction> getAllTransactions();
+	list <Transaction> getAllTransactions();
 };
 

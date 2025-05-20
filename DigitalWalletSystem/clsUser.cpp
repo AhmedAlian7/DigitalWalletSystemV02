@@ -75,7 +75,7 @@ pair<double, int> User::getSentTransactionsThisMonth() {
     int transactionCount = 0;
 
     Database db;
-    vector<Transaction> allTransactions = db.getAllTransactions();
+    list <Transaction> allTransactions = db.getAllTransactions();
 
     for (Transaction& transaction : allTransactions) {
         if (transaction.sender == username && isCurrentMonth(transaction)) {
@@ -93,7 +93,7 @@ pair<double, int> User::getReceivedTransactionsThisMonth() {
     int transactionCount = 0;
 
     Database db;
-    vector<Transaction> allTransactions = db.getAllTransactions();
+    list<Transaction> allTransactions = db.getAllTransactions();
 
     for (Transaction& transaction : allTransactions) {
         if (transaction.receiver == username && isCurrentMonth(transaction)) {

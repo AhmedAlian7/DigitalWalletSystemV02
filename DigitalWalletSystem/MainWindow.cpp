@@ -62,7 +62,7 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
 
     if (currentUser != nullptr) {
         Database db;
-        vector<Transaction> transactions = db.loadTransactionsFor(currentUser->username);
+        list<Transaction> transactions = db.loadTransactionsFor(currentUser->username);
         if (transactions.empty()) return;
         int size = transactions.size() -1;
         for (int i = size; i > size - transactionCount; --i) {
