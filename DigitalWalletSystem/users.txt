@@ -1,11 +1,2 @@
-ahmed,aaaaaa,500,0
-aaaaaa,aaaaaa,500,0
-amr,amr123,737.7,0
-asasas,asasas,357.2,0
-a,asasas,500,0
-Omaroo,1234567,900,0
-amro,123456,20,0
-yyyy,888888888,90,0
-ah,nfnfnf,500,0
-aa,nnnnnn,345,0
-qq,dddddd,500,0
+oo,123456,500,0
+omar,123456,500,0
