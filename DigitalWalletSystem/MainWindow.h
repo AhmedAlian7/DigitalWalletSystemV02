@@ -16,6 +16,7 @@ public:
 	~MainWindow();
 
 	void loadRecentTransactions(int transactionCount = 3);
+	void loadAllTransactions();
     void loadUserInfo();
 
 
@@ -28,6 +29,8 @@ private slots:
     void on_sendMoneyButton_clicked();
     void on_requestMoneyButton_clicked();
     void on_pendingRequestsButton_clicked();
+
+    void on_btnChangePass_clicked();
 
 
 

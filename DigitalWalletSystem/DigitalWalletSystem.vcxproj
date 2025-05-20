@@ -100,6 +100,7 @@
   <ItemGroup>
     <ClCompile Include="AddWidget.cpp" />
     <ClCompile Include="AdminWidget.cpp" />
+    <ClCompile Include="ChangePass.cpp" />
     <ClCompile Include="clsAdmin.cpp" />
     <ClCompile Include="clsDatabase.cpp" />
     <ClCompile Include="clsMoneyRequest.cpp" />
@@ -115,6 +116,7 @@
     <QtRcc Include="DigitalWalletSystem.qrc" />
     <QtUic Include="AddWidget.ui" />
     <QtUic Include="AdminWidget.ui" />
+    <QtUic Include="ChangePass.ui" />
     <QtUic Include="DigitalWalletSystem.ui" />
     <QtMoc Include="DigitalWalletSystem.h" />
     <ClCompile Include="DigitalWalletSystem.cpp" />
@@ -136,6 +138,7 @@
     <QtMoc Include="RequestMoneyCLass.h" />
     <QtMoc Include="AdminWidget.h" />
     <QtMoc Include="AddWidget.h" />
+    <QtMoc Include="ChangePass.h" />
     <ClInclude Include="clsAdmin.h" />
     <ClInclude Include="clsDatabase.h" />
     <ClInclude Include="clsGlobal.h" />

@@ -42,7 +42,7 @@ User* User::findUserByUsernameAndPass(std::string clsUsername, std::string pass)
 
     string decryptedPass = clsUtil::decipherText(userFromDb.password);
     if (decryptedPass == pass) {
-        User* validclsUser = new User(userFromDb.username, decryptedPass, userFromDb.balance, userFromDb.isSuspended);
+        User* validclsUser = new User(userFromDb.username, userFromDb.password, userFromDb.balance, userFromDb.isSuspended);
         validclsUser->transactions = userFromDb.transactions;
         return validclsUser;
     }

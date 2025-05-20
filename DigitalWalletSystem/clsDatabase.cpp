@@ -87,9 +87,8 @@ unordered_map<string, User> Database::loadUsers() {
 
 
 void Database::updateUser(User user) {
-    usersMap[user.username] = user;
+    usersMap[user.username] = user; // complixity O(1)
     saveUsersToFile();
-
 }
 
 

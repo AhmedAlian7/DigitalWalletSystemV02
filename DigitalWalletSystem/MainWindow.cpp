@@ -9,6 +9,7 @@
 #include <QGraphicsDropShadowEffect>
 #include <QMessageBox>
 #include <DigitalWalletSystem.h>
+#include <ChangePass.h>
 
 MainWindow::MainWindow(User* currentUser, QWidget *parent)
 	: QMainWindow(parent)
@@ -30,6 +31,7 @@ MainWindow::MainWindow(User* currentUser, QWidget *parent)
     connect(ui.sendMoneyButton, &QPushButton::clicked, this, &MainWindow::on_sendMoneyButton_clicked);
     connect(ui.requestMoneyButton, &QPushButton::clicked, this, &MainWindow::on_requestMoneyButton_clicked);
     connect(ui.PendingRequestsButton, &QPushButton::clicked, this, &MainWindow::on_pendingRequestsButton_clicked);
+    connect(ui.btnChangePass, &QPushButton::clicked, this, &MainWindow::on_btnChangePass_clicked);
 
 
     // Set Dashboard as default view
@@ -93,6 +95,10 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
     else {
         qDebug() << "Warning: currentUser is null in loadRecentTransactions()";
     }
+
+}
+
+void MainWindow::loadAllTransactions() {
 
 }
 
@@ -195,12 +201,18 @@ void MainWindow::on_transactionsButton_clicked()
 {
     ui.stackedWidget->setCurrentIndex(1); // Transactions page
     setActiveButton(ui.transactionsButton);
+
+    loadAllTransactions();
 }
 
 void MainWindow::on_profileButton_clicked()
 {
     ui.stackedWidget->setCurrentIndex(2); // Profile page
     setActiveButton(ui.profileButton);
+
+    ui.lineEditUsername->setText(QString::fromStdString(currentUser->username));
+    ui.usernameLabel->setText(QString::fromStdString(currentUser->username));
+    ui.avatarLabel->setText(QString::fromStdString(currentUser->username).left(1));
 }
 
 void MainWindow::on_logoutButton_clicked()
@@ -239,6 +251,10 @@ void MainWindow::on_requestMoneyButton_clicked()
     RequestMoneyCLass* sendMoneyDialog = new RequestMoneyCLass(this);
     sendMoneyDialog->setCurrentUser(currentUser);
 
+    connect(sendMoneyDialog, &RequestMoneyCLass::transactionCompleted, this, [this]() {
+        loadUserInfo();
+        });
+
     sendMoneyDialog->exec();
 
     delete sendMoneyDialog;
@@ -254,4 +270,11 @@ void MainWindow::on_pendingRequestsButton_clicked()
     sendMoneyDialog->exec();
 
     delete sendMoneyDialog;
+}
+
+void MainWindow::on_btnChangePass_clicked() {
+    ChangePass* changePassDialog = new ChangePass(currentUser, this);
+    changePassDialog->exec();
+
+    delete changePassDialog;
 }

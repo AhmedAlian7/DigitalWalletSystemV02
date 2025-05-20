@@ -16,11 +16,6 @@ public:
     User(string username, string password);
     User(string username, string password, double balance, bool isSuspended);
 
-    // Features
-    double viewBalance();
-    bool sendMoney(const string& to, double amount);
-    void viewTransactionHistory();
-
     ~User();
 
     static User* findUserByUsernameAndPass(std::string clsUsername, std::string pass);
@@ -40,5 +35,4 @@ public:
 
     // Check if current user is the same as another user
     bool isSameUser(const string& otherUser) const;
-
 };
