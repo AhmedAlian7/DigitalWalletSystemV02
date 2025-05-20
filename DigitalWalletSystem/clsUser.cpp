@@ -3,21 +3,11 @@
 #include "clsTransaction.h"
 #include<string>
 #include <iostream>
-#include <iomanip> 
 #include "clsMoneyRequest.h"
 #include "Utilities/cslUtil.h"
 
-/*
-    - don't forget to add error handling
-*/
-
-
-
 using namespace std;
 
-// =======================
-//          User
-// =======================
 
 User::User() {
     username = "";
@@ -40,118 +30,6 @@ User::User(string name, string pass, double bal, bool isSus) {
     transactions = { };
     isSuspended = isSus;
 }
-
-// -------- Authentication -------- DONE
-
-User User::registerUser() {
-    string name, pass;
-
-    cout << "Enter Username: ";
-    getline(cin, name);
-    cout << "Enter Password: ";
-    getline(cin, pass);
-
-    Database db;
-    while (true) {
-        User userFromDb = db.getUser(name);
-        if (userFromDb.username != "") { // Exists
-            cout << "Sorry, this username is taken. Try another." << endl;
-            cout << "Enter Username: ";
-            getline(cin, name); // Prompt for a new username
-        }
-        else {
-            User newUser = User(name, pass);
-            db.addUser(newUser); // Consider adding error handling here
-            return newUser;
-        }
-    }
-}
-
-User User::loginUser() {
-    string name, pass;
-
-    cout << "Enter Username: ";
-    getline(cin, name);
-    cout << "Enter Password: ";
-    getline(cin, pass);
-
-    Database db;
-    User userFromDb = db.getUser(name);
-
-    if (userFromDb.username != "") {
-        if (userFromDb.password == pass) {
-            cout << "Logged in :)" << endl;
-            return userFromDb;
-        }
-        else {
-            cout << "Username or password is wrong, please try again :(" << endl;
-            // Consider using a loop instead of recursion
-            return loginUser(); // This could be replaced with a loop
-        }
-    }
-    else {
-        cout << "You are not logged in, please register." << endl;
-        cout << "register Process" << endl;
-        return registerUser(); // This could also be replaced with a loop
-    }
-}
-
-
-
-
-// -------- Features --------
-
-// DONE
-double User::viewBalance() {
-    return balance;
-}
-
-// DONE
-bool User::sendMoney(const string& to, double amount) {
-    Database db;
-
-    // Check if receiver is in our db
-    User userFromDb = db.getUser(to); // Should return a User object
-
-    if (userFromDb.username != "") { // Check if user exists
-        // Check if my balance covers the amount
-        if (balance >= amount) {
-            balance -= amount;
-            Transaction transaction(username, to, amount); // Corrected instantiation
-
-            // Add to database logs
-            db.addTransaction(transaction);
-            return true; // Indicate success
-        }
-        else {
-            cout << "You do not have enough balance to send this amount!" << endl;
-            cout << "Try a lower amount to send." << endl;
-            return false; // Indicate failure
-        }
-    }
-    else {
-        cout << "Wrong receiver username." << endl;
-        return false; // Indicate failure
-    }
-}
-
-// DONE
-void User::viewTransactionHistory() {
-    if (transactions.empty()) {
-        cout << "No transactions found." << endl;
-        return;
-    }
-
-    cout << "Transaction History for " << username << ":" << endl;
-    for (const auto& transaction : transactions) {
-        cout << "Sender: " << transaction.sender
-            << ", Receiver: " << transaction.receiver
-            << ", Amount: " << fixed << setprecision(2) << transaction.amount << endl;
-    }
-}
-
-// DONE
-
 
 User::~User() {
 }
@@ -184,12 +62,11 @@ bool User::isUsernameAvailable(string username) {
 
 bool User::isCurrentMonth(Transaction& transaction) {
 
-    clsDate now = clsDate::GetSystemDate();
-    short transactionMonth = transaction.date.Month;
-    short transactionYear = transaction.date.Year;
+    QDateTime now = QDateTime::currentDateTime();
+    int currentMonth = now.date().month();
+    int currentYear = now.date().year();
 
-
-    return (now.Month == transactionMonth && now.Year == transactionYear);
+    return (transaction.date.date().month() == currentMonth && transaction.date.date().year() == currentYear);
 }
 
 // Method to get total amount sent this month and count of sent transactions

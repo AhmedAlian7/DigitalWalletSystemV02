@@ -9,40 +9,10 @@
 #include "Utilities/cslUtil.h"
 
 
-// USER CRUD Operations
-
-// DONE
-bool Database::addUser(User& user) {
-    // Data Format: username,password,balance,isSuspended
-    fstream file;
-    string filename = "users.txt";
-
-    // password encryption
-    string encryptedPass = clsUtil::cipherText(user.password);
-
-    file.open(filename, ios::app);
-
-    if (file.is_open()) {
-        file << user.username << ","
-            << encryptedPass << ","
-            << user.balance << ","
-            << user.isSuspended << endl;
-        return true;
-    }
-    else {
-        cout << "There is an error in opening file: " << filename << endl;
-        return false;
-    }
-
-    file.close();
-}
-
-User Database::getUser(string username) {
-    fstream file;
-    string filename = "users.txt";
+Database::Database() {
+    fstream file("users.txt", ios::in);
     string line;
 
-    file.open(filename, ios::in);
     if (file.is_open()) {
         while (getline(file, line)) {
             stringstream ss(line);
@@ -53,30 +23,40 @@ User Database::getUser(string username) {
             getline(ss, balanceStr, ',');
             getline(ss, isSuspendedStr, ',');
 
-            if (userName == username) {
+            User user(userName, password, stod(balanceStr), isSuspendedStr == "1");
+            user.transactions = loadTransactionsFor(user.username);  // optional
 
-                User user = User(userName, password, stod(balanceStr), (isSuspendedStr == "1"));
-
-                user.transactions = loadTransactionsFor(user.username);
-
-                file.close();
-                return user;
-            }
+            usersMap[userName] = user;
         }
         file.close();
     }
     else {
-        cout << "There is an error in opening file: " << filename << endl;
+        cout << "Error opening file: users.txt" << endl;
     }
+}
 
+bool Database::addUser(User& user) {
+
+    if (usersMap.find(user.username) != usersMap.end())
+        return false;  // already exists
+
+    user.password = clsUtil::cipherText(user.password);
+    usersMap[user.username] = user;
+    saveUsersToFile();
+    return true;
+}
+
+User Database::getUser(string username) {
+    if (usersMap.find(username) != usersMap.end())
+        return usersMap[username];
     return User();
 }
 
-vector<User> Database::loadUsers() {
+unordered_map<string, User> Database::loadUsers() {
     fstream file;
     string filename = "users.txt";
     string line;
-    vector<User> users;
+    unordered_map<string, User> users;
 
     file.open(filename, ios::in);
     if (file.is_open()) {
@@ -93,7 +73,7 @@ vector<User> Database::loadUsers() {
 
             user.transactions = loadTransactionsFor(user.username);
 
-            users.push_back(user);
+            users.insert(make_pair(userName,user));
         }
         file.close();
     }
@@ -107,53 +87,9 @@ vector<User> Database::loadUsers() {
 
 
 void Database::updateUser(User user) {
-    fstream file;
-    string filename = "users.txt";
-    string line;
-    vector<User> users;
+    usersMap[user.username] = user;
+    saveUsersToFile();
 
-    file.open(filename, ios::in);
-    if (file.is_open()) {
-        while (getline(file, line)) {
-            stringstream ss(line);
-            string userName, password, balanceStr, isSuspendedStr;
-
-            getline(ss, userName, ',');
-            getline(ss, password, ',');
-            getline(ss, balanceStr, ',');
-            getline(ss, isSuspendedStr, ',');
-
-            User existingUser = User(userName, password, stod(balanceStr), (isSuspendedStr == "1"));
-
-            if (existingUser.username == user.username) {
-                existingUser.password = user.password;
-                existingUser.balance = user.balance;
-                existingUser.isSuspended = user.isSuspended;
-            }
-
-            users.push_back(existingUser);
-        }
-        file.close();
-    }
-    else {
-        cout << "There is an error in opening file: " << filename << endl;
-        return;
-    }
-
-    // Write updated users back to the file
-    file.open(filename, ios::out | ios::trunc);
-    if (file.is_open()) {
-        for (const auto& existingUser : users) {
-            file << existingUser.username << ","
-                << existingUser.password << ","
-                << existingUser.balance << ","
-                << existingUser.isSuspended << endl;
-        }
-        file.close();
-    }
-    else {
-        cout << "There is an error in opening file: " << filename << endl;
-    }
 }
 
 
@@ -181,58 +117,29 @@ void Database::SaveUsers(vector <User> users) {
 
 }
 
+void Database::saveUsersToFile() {
+    fstream file("users.txt", ios::out | ios::trunc);
+    if (!file.is_open()) {
+        cout << "Error opening file to save users." << endl;
+        return;
+    }
+
+    for (const auto& [username, user] : usersMap) {
+        file << username << ","
+            << user.password << ","
+            << user.balance << ","
+            << user.isSuspended << endl;
+    }
+
+    file.close();
+}
 
 
 // USED BY THE ADMIN
 void Database::deleteUser(string username) {
-    fstream file;
-    string filename = "users.txt";
-    string line;
-    vector<User> users;
+    usersMap.erase(username);
+    saveUsersToFile();
 
-    // Load existing users
-    file.open(filename, ios::in);
-    if (file.is_open()) {
-        while (getline(file, line)) {
-            stringstream ss(line);
-            string userName, password, balanceStr, isSuspendedStr;
-
-            getline(ss, userName, ',');
-            getline(ss, password, ',');
-            getline(ss, balanceStr, ',');
-            getline(ss, isSuspendedStr, ',');
-
-            // Only add users that are not being deleted
-            if (userName != username) {
-                User existingUser;
-                existingUser.username = userName;
-                existingUser.password = password;
-                existingUser.balance = stod(balanceStr);
-                existingUser.isSuspended = (isSuspendedStr == "1");
-                users.push_back(existingUser); // Add to the list
-            }
-        }
-        file.close();
-    }
-    else {
-        cout << "There is an error in opening file: " << filename << endl;
-        return;
-    }
-
-    // Write remaining users back to the file
-    file.open(filename, ios::out | ios::trunc);
-    if (file.is_open()) {
-        for (const auto& existingUser : users) {
-            file << existingUser.username << ","
-                << existingUser.password << ","
-                << existingUser.balance << ","
-                << existingUser.isSuspended << endl;
-        }
-        file.close();
-    }
-    else {
-        cout << "There is an error in opening file: " << filename << endl;
-    }
 }
 
 
@@ -294,7 +201,7 @@ void Database::addTransaction(Transaction transaction) {
         file << transaction.sender << ","
             << transaction.receiver << ","
             << transaction.amount << ","
-            << transaction.date.DateToString() << ","
+            << transaction.date.toString("yyyy-MM-dd hh:mm:ss").toStdString() << ","
             << transaction.note << endl;
     }
     else {
@@ -321,7 +228,8 @@ void Database::deleteTransactionFor(string username) {
             getline(ss, amountStr, ',');
             getline(ss, dateStr, ',');
             getline(ss, note);
-            clsDate date = clsDate(dateStr);
+            QDateTime date = QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss");
+
             if (sender != username && receiver != username) {
                 Transaction transaction(sender, receiver, stod(amountStr),date,note);
                 transactions.push_back(transaction);
@@ -348,7 +256,6 @@ void Database::deleteTransactionFor(string username) {
     }
 }
 
-
 vector<Transaction> Database::getAllTransactions() {
     fstream file;
     string filename = "transaction.txt";
@@ -366,7 +273,7 @@ vector<Transaction> Database::getAllTransactions() {
             getline(ss, amountStr, ',');
             getline(ss, dateStr, ',');
             getline(ss, note);
-            clsDate date(dateStr);
+            QDateTime date = QDateTime::fromString(QString::fromStdString(dateStr), "yyyy-MM-dd hh:mm:ss");
 
             Transaction transaction(sender, receiver, stod(amountStr), date, note);
             transactions.push_back(transaction);

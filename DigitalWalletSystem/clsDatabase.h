@@ -1,9 +1,6 @@
 #pragma once
 #include <iostream>
-#include <vector>
-#include <cstdarg>
-
-
+#include <unordered_map>
 #include "clsUser.h"
 #include "clsTransaction.h"
 
@@ -11,8 +8,16 @@ using namespace std;
 
 class Database
 {
+private:
+	unordered_map<string, User> usersMap;
+
+
 public:
-	vector<User> loadUsers(); // USED
+
+	Database();  // Load users from file at startup
+	void saveUsersToFile();
+
+	unordered_map<string, User> loadUsers();
 	User getUser(string username);
 	bool addUser(User& user); // USED
 	void deleteUser(string username);
