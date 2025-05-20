@@ -39,8 +39,6 @@ AdminWidget::AdminWidget(QWidget *parent)
     // Save button connection
     connect(ui.btnSave, &QPushButton::clicked, this, &AdminWidget::saveChanges);
 
-    
-
 }
 
 void AdminWidget::setupTable()
@@ -116,41 +114,56 @@ void AdminWidget::showContextMenu(const QPoint& pos)
 
 void AdminWidget::saveChanges()
 {
-
-	
     Database DB;
-    unordered_map<string, User>  users = DB.loadUsers();
+    unordered_map users = DB.loadUsers();
+    bool changesMade = false;
 
-
+    // Now process all rows
     for (int i = 0; i < ui.tableWidget->rowCount(); ++i) {
         QString username = ui.tableWidget->item(i, 0)->text();
         double balance = ui.tableWidget->item(i, 1)->text().toDouble();
-        QComboBox* statusCombo = qobject_cast<QComboBox*>(ui.tableWidget->cellWidget(i, 2));
-        bool isSuspended = (statusCombo && statusCombo->currentText() == "Suspend");
 
-        // Find and update in users vector
-        for (auto& pair : users) {
-            if (pair.first == username.toStdString()) {
-                pair.second.balance = balance;
-                pair.second.isSuspended = isSuspended;
+        // Get status from ComboBox
+        QComboBox* statusCombo = qobject_cast<QComboBox*>(ui.tableWidget->cellWidget(i, 2));
+        if (!statusCombo) {
+            QMessageBox::warning(this, "Error", "Status not found for user: " + username);
+            continue;
+        }
+
+        QString statusText = statusCombo->currentText();
+        bool isSuspended = (statusText == "Suspend");
+
+        
+        for (auto& user : users) {
+            if (user.first == username.toStdString()) {
+                // Always update the values
+                user.second.balance = balance;
+                user.second.isSuspended = isSuspended;
+                changesMade = true;
                 break;
             }
         }
     }
 
-    // Now save to DB
-    //Database DB;
-   // DB.SaveUsers(users); // Assume you have this function
+    if (changesMade) {
+        // Save to database
+        DB.saveUsersToFile(users);
 
-    QMessageBox::information(this, "Saved", "All changes have been saved.");
+        // Reload the table
+        loadUsersToTable();
+
+        QMessageBox::information(this, "Success", "All changes have been saved successfully.");
+    }
+    else {
+        QMessageBox::information(this, "Info", "No changes to save.");
+    }
 }
-
 // Function placeholders to be implemented
 void AdminWidget::onAddUser() {
-    
+  
     AddWidget* addUserWidget = new AddWidget(this);
     addUserWidget->show();
-   
+
     connect(addUserWidget->ui.addButton, &QPushButton::clicked, this, [this, addUserWidget]() {
 
         if (addUserWidget->validateForm())
@@ -178,11 +191,10 @@ void AdminWidget::onAddUser() {
 
             addUserWidget->close();
             delete addUserWidget;
-     
+ 
         }
 
-    });
-    
+  });
 }
 
 

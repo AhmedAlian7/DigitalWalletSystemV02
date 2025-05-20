@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include "ui_AdminWidget.h"
 
+
 class AdminWidget : public QMainWindow
 {
 	Q_OBJECT
@@ -11,6 +12,9 @@ public:
 	AdminWidget(QWidget *parent = nullptr);
 	~AdminWidget();
 	
+
+	
+
 	void showContextMenu(const QPoint& pos);
 	void handleUserRowAction(int row);
 	
