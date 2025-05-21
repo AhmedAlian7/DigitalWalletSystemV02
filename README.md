@@ -80,11 +80,11 @@ All user data and transactions are saved to files, allowing users to close the p
 
 ## Contributors
 
-- Ahmed Alian (Teem Leader)
+- Ahmed Alian
 - Amr Ahmed
 - Omar Elsheikh
 
 
 ---
 
-*This project was developed as part of educational coursework (Idea Number: 87)*
+*This project was developed as part of educational coursework*
