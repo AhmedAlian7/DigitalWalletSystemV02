@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 
     DigitalWalletSystem mainWindow;
     mainWindow.setFixedSize(500, 600);
+    app.setWindowIcon(QIcon(":/DigitalWalletSystem/icons/ewallet.ico"));
     mainWindow.show();
 
 

@@ -2,22 +2,22 @@
 
 // Constructor with current timestamp
 Transaction::Transaction(string sender, string receiver, double amount)
-    : sender(sender), receiver(receiver), amount(amount) {
+    : _sender(sender), _receiver(receiver), _amount(amount) {
     date = QDateTime::currentDateTime();
 }
 
 // Constructor with specific timestamp
 Transaction::Transaction(string sender, string receiver, double amount, QDateTime transactionTime)
-    : sender(sender), receiver(receiver), amount(amount), date(transactionTime) {
+    : _sender(sender), _receiver(receiver), _amount(amount), _date(transactionTime) {
 }
 
 Transaction::Transaction(string sender, string receiver, double amount, string note) 
-    : sender(sender), receiver(receiver), amount(amount), note(note) {
+    : _sender(sender), _receiver(receiver), _amount(amount), _note(note) {
     date = QDateTime::currentDateTime();
 }
 
 Transaction::Transaction(string sender, string receiver, double amount, QDateTime transactionTime, string note)
-    : sender(sender), receiver(receiver), amount(amount), date(transactionTime), note(note) {
+    : _sender(sender), _receiver(receiver), _amount(amount), _date(transactionTime), _note(note) {
 }
 
 Transaction::~Transaction() {

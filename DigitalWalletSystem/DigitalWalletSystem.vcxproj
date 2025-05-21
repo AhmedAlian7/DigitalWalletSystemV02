@@ -135,6 +135,7 @@
     <QtMoc Include="widgetLogin.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <QtMoc Include="UserTransactions.h" />
     <QtMoc Include="requestCard.h" />
     <QtMoc Include="PendingMoneyRequests.h" />
@@ -152,6 +153,13 @@
     <QtMoc Include="TransactionItemWidget.h" />
     <QtMoc Include="MainWindow.h" />
     <QtMoc Include="RegisterForm.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Users\Ahmed Alian\Downloads\ewallet.ico" />
+    <Image Include="..\..\..\Users\Ahmed Alian\Downloads\ewallet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

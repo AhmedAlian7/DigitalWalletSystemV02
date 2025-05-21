@@ -56,7 +56,7 @@ private:
     void setActiveButton(QPushButton* button);
 
     // Create a transaction widget for the list
-    QWidget* createTransactionWidget(const QString& title, const QString& date, const QString& amount, bool isSent);
+    QWidget* createTransactionWidget(const QString& title, const QString& date, const QString& amount, const QString& note, bool isSent);
 
     bool isSentTransation(Transaction t);
 

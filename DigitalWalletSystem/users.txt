@@ -1,3 +1,4 @@
-as,nfnfnf,495.7,0
-amr,aaaaaa,504.3,0
+as,nnnnnn,590.7,0
+amr,aaaaaa,599.3,0
 ahmed,nuzrq11,500,0
+aa,nnnnnn,310,0

@@ -22,7 +22,7 @@ void ChangePass::on_btnConfirm_Clicked() {
 
     if (validateForm()) {
         QString newPassword = ui.lineEdit_NewPass->text();
-        m_currentUser->password = newPassword.toStdString();
+        m_currentUser->password = clsUtil::cipherText( newPassword.toStdString() );
         Database db;
         db.updateUser(*m_currentUser);
         QMessageBox::information(this, "Change Password Successful",
@@ -55,7 +55,8 @@ bool ChangePass::validateForm() {
         ui.lineEdit_CurrentPass->setFocus();
         return false;
     }
-    if (ui.lineEdit_CurrentPass->text().toStdString() != m_currentUser->password) {
+    string decryptedPass = clsUtil::decipherText(m_currentUser->password);
+    if (ui.lineEdit_CurrentPass->text().toStdString() != decryptedPass) {
         QMessageBox::warning(this, "Validation Error", "Wrong current password");
         ui.lineEdit_CurrentPass->setFocus();
         return false;

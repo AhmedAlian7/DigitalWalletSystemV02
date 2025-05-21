@@ -14,7 +14,9 @@ PendingMoneyRequests::PendingMoneyRequests(User* user, QWidget *parent)
 }
 
 PendingMoneyRequests::~PendingMoneyRequests()
-{}
+{
+    emit transactionCompleted();
+}
 
 void PendingMoneyRequests::loadRequests() {
 
