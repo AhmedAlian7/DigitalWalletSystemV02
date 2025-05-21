@@ -16,6 +16,7 @@
 #include "Utilities/cslUtil.h"
 #include <QGraphicsDropShadowEffect>
 #include <DigitalWalletSystem.h>
+#include "UserTransactions.h"
 
 
   
@@ -148,7 +149,7 @@ QWidget* AdminWidget::createTransactionWidgets(const QString& sender, const QStr
     QLabel* amountLabel = new QLabel("$" + amount);
     amountLabel->setStyleSheet("color: #3498db; font-weight: bold; font-size: 13px;");
     amountLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    /
+    
     amountLabel->setMinimumWidth(70);
 
     
@@ -345,10 +346,36 @@ void AdminWidget::onDeleteUser(int row) {
     loadUsersToTable();
 
 }
+
+
+
 void AdminWidget::onViewTransactions(int row) {
 
- 
+    Database db;
+
+    QTableWidgetItem* item = ui.tableWidget->item(row, 0);
+    QString username = item->text();
+
+    // Allocate user on the heap to avoid dangling pointer
+    User* u = new User(db.getUser(username.toStdString()));
+
+    // Create the transactions dialog
+    UserTransactions* Transactions = new UserTransactions(u, this);
+
+    // Load the transactions before showing the dialog
+    Transactions->LoadallTransactions();
+
+    // Show the dialog
+    Transactions->show();
+
+
+
 }
+
+
+
+
+
 
 AdminWidget::~AdminWidget()
 {

@@ -58,6 +58,9 @@ bool MainWindow::isSentTransation(Transaction t) {
     return currentUser->username == t.sender;
 }
 
+
+
+
 void MainWindow::loadRecentTransactions(int transactionCount) {
     ui.listTransactions->clear(); // QListWidget
 

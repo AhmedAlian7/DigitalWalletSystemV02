@@ -2,6 +2,7 @@
 
 #include <QMainWindow>
 #include "ui_AdminWidget.h"
+#include "clsTransaction.h"
 
 
 class AdminWidget : public QMainWindow
@@ -33,9 +34,13 @@ public:
 	void onTransactionClicked();
 	void onUsersClicked();
 
+
 	void loadUsersToTable();
 
-	
+
+
+
+
 private:
 	Ui::AdminWidgetClass ui;
 };
