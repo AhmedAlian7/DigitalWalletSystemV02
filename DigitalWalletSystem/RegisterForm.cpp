@@ -17,7 +17,6 @@ RegisterForm::RegisterForm(QWidget* parent) :
     // Make the "Sign In" text clickable
     ui->signInLink->setText("<a href=\"#\" style=\"color: #4a90e2; text-decoration: underline;\">Already have a wallet? Sign in</a>");
 
-    // To ensure the form looks good on different screens
     this->setMinimumSize(400, 500);
 }
 
@@ -52,8 +51,12 @@ void RegisterForm::onRegisterButtonClicked()
         ui->passwordEdit->clear();
         ui->confirmPasswordEdit->clear();
 
-        // Optionally switch to sign in form
-        emit switchToSignIn();
+        // Automatically switch to login form after successful registration
+        if (mainWindow) {
+            // Use the onSignInLinkClicked which already has the proper implementation
+            // to switch to the login form
+            onSignInLinkClicked();
+        }
     }
 }
 

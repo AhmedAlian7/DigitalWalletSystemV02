@@ -16,6 +16,7 @@ public:
 	void onRegisterLinkClicked();
 
 	void setMainWindow(DigitalWalletSystem* mw);
+	void clearFormFields();
 
 private:
 	Ui::widgetLoginClass ui;

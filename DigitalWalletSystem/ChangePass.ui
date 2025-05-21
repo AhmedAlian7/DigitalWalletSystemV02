@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ChangePassClass</class>
+ <widget class="QDialog" name="ChangePassClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>448</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ChangePass</string>
+  </property>
+  <widget class="QPushButton" name="btnConfirm">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>370</y>
+     <width>371</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+background-color: #4a90e2;
+color: white;
+border: none;
+border-radius: 5px;
+padding: 12px;
+font-size: 14px;
+font-weight: bold;
+}
+
+QPushButton:hover {
+background-color: #357abD;
+}
+
+QPushButton:pressed {
+background-color: #2a5a8D;
+}</string>
+   </property>
+   <property name="text">
+    <string>Confirm</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_NewPass">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>200</y>
+     <width>371</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+padding: 10px;
+border: 1px solid #dddddd;
+border-radius: 5px;
+font-size: 14px;
+}
+
+QLineEdit:focus {
+border: 1px solid #4a90e2;
+}</string>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::EchoMode::Password</enum>
+   </property>
+   <property name="placeholderText">
+    <string>Enter the new password</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="titleLabel">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>10</y>
+     <width>411</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>22</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Change Password&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usernameLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>64</y>
+     <width>405</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Current Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_CurrentPass">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>371</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+padding: 10px;
+border: 1px solid #dddddd;
+border-radius: 5px;
+font-size: 14px;
+}
+
+QLineEdit:focus {
+border: 1px solid #4a90e2;
+}</string>
+   </property>
+   <property name="placeholderText">
+    <string>Enter your current password</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usernameLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>163</y>
+     <width>405</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;New Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_ConfirmNewPass">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>297</y>
+     <width>371</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+padding: 10px;
+border: 1px solid #dddddd;
+border-radius: 5px;
+font-size: 14px;
+}
+
+QLineEdit:focus {
+border: 1px solid #4a90e2;
+}</string>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::EchoMode::Password</enum>
+   </property>
+   <property name="placeholderText">
+    <string>Confirm the new password</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="usernameLabel_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>260</y>
+     <width>405</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Confirm New Password&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

@@ -6,14 +6,14 @@
 #include "clsUser.h"
 #include "clsDatabase.h"
 #include "Utilities/cslUtil.h"
-#include <QGraphicsDropShadowEffect>
 #include <QMessageBox>
-#include <DigitalWalletSystem.h>
+#include "ChangePass.h"
 
 MainWindow::MainWindow(User* currentUser, QWidget *parent)
 	: QMainWindow(parent)
     , activeButton(nullptr)
     , currentUser(currentUser)
+    , walletSystem(nullptr)
 {
 	ui.setupUi(this);
 
@@ -30,6 +30,7 @@ MainWindow::MainWindow(User* currentUser, QWidget *parent)
     connect(ui.sendMoneyButton, &QPushButton::clicked, this, &MainWindow::on_sendMoneyButton_clicked);
     connect(ui.requestMoneyButton, &QPushButton::clicked, this, &MainWindow::on_requestMoneyButton_clicked);
     connect(ui.PendingRequestsButton, &QPushButton::clicked, this, &MainWindow::on_pendingRequestsButton_clicked);
+    connect(ui.btnChangePass, &QPushButton::clicked, this, &MainWindow::on_btnChangePass_clicked);
 
 
     // Set Dashboard as default view
@@ -65,7 +66,6 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
         list<Transaction> transactions = db.loadTransactionsFor(currentUser->username);
         if (transactions.empty()) return;
 
-
         int count = 0;
         for (auto it = transactions.rbegin(); it != transactions.rend() && count < transactionCount; ++it, ++count) {
             const Transaction& t = *it;
@@ -97,8 +97,46 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
     else {
         qDebug() << "Warning: currentUser is null in loadRecentTransactions()";
     }
+}
 
+void MainWindow::loadAllTransactions() {
+    ui.listTransactions_all->clear(); // QListWidget
 
+    if (currentUser != nullptr) {
+        Database db;
+        list<Transaction> transactions = db.loadTransactionsFor(currentUser->username);
+        if (transactions.empty()) return;
+
+        for (auto it = transactions.rbegin(); it != transactions.rend(); ++it) {
+            const Transaction& t = *it;
+
+            QListWidgetItem* item = new QListWidgetItem(ui.listTransactions_all);
+            QWidget* widget;
+
+            if (isSentTransation(t)) {
+                widget = createTransactionWidget(
+                    "Sent to " + QString::fromStdString(t.receiver),
+                    t.date.toString("yyyy-MM-dd hh:mm:ss"),
+                    "-$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
+                    true
+                );
+            }
+            else {
+                widget = createTransactionWidget(
+                    "Received from " + QString::fromStdString(t.sender),
+                    t.date.toString("yyyy-MM-dd hh:mm:ss"),
+                    "+$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
+                    false
+                );
+            }
+
+            item->setSizeHint(widget->sizeHint());
+            ui.listTransactions_all->setItemWidget(item, widget);
+        }
+    }
+    else {
+        qDebug() << "Warning: currentUser is null in loadRecentTransactions()";
+    }
 }
 
 void MainWindow::loadUserInfo() {
@@ -117,8 +155,13 @@ void MainWindow::loadUserInfo() {
     ui.lblReceivedThisMonth->setText("$" + QString::fromStdString(clsUtil::doubleToString(receivedAmount)));
     ui.lblReceivedTransactions->setText(QString::fromStdString(to_string(receivedCount) + " Transaction"));
 
-    loadRecentTransactions();
+    loadRecentTransactions(3);
     //setupTransactionsList();
+}
+
+void MainWindow::setDigitalWalletSystem(DigitalWalletSystem* system)
+{
+    walletSystem = system;
 }
 
 
@@ -200,20 +243,29 @@ void MainWindow::on_transactionsButton_clicked()
 {
     ui.stackedWidget->setCurrentIndex(1); // Transactions page
     setActiveButton(ui.transactionsButton);
+
+    loadAllTransactions();
 }
 
 void MainWindow::on_profileButton_clicked()
 {
     ui.stackedWidget->setCurrentIndex(2); // Profile page
     setActiveButton(ui.profileButton);
+
+    ui.lineEditUsername->setText(QString::fromStdString(currentUser->username));
+    ui.usernameLabel->setText(QString::fromStdString(currentUser->username));
+    ui.avatarLabel->setText(QString::fromStdString(currentUser->username).left(1));
 }
 
 void MainWindow::on_logoutButton_clicked()
 {
-    DigitalWalletSystem mainWindow;
-    mainWindow.setFixedSize(500, 600);
-    mainWindow.show();
-    close();
+    this->close();
+
+    // Show login form if wallet system reference exists
+    if (walletSystem) {
+        walletSystem->show(); // Show the main system window first
+        walletSystem->showLoginForm(); // Then display the login form
+    }
 }
 
                                             // Action button slot implementations
@@ -244,6 +296,10 @@ void MainWindow::on_requestMoneyButton_clicked()
     RequestMoneyCLass* sendMoneyDialog = new RequestMoneyCLass(this);
     sendMoneyDialog->setCurrentUser(currentUser);
 
+    connect(sendMoneyDialog, &RequestMoneyCLass::transactionCompleted, this, [this]() {
+        loadUserInfo();
+        });
+
     sendMoneyDialog->exec();
 
     delete sendMoneyDialog;
@@ -259,4 +315,11 @@ void MainWindow::on_pendingRequestsButton_clicked()
     sendMoneyDialog->exec();
 
     delete sendMoneyDialog;
+}
+
+void MainWindow::on_btnChangePass_clicked() {
+    ChangePass* changePassDialog = new ChangePass(currentUser, this);
+    changePassDialog->exec();
+
+    delete changePassDialog;
 }

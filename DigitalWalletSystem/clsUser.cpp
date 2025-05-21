@@ -42,7 +42,7 @@ User* User::findUserByUsernameAndPass(std::string clsUsername, std::string pass)
 
     string decryptedPass = clsUtil::decipherText(userFromDb.password);
     if (decryptedPass == pass) {
-        User* validclsUser = new User(userFromDb.username, decryptedPass, userFromDb.balance, userFromDb.isSuspended);
+        User* validclsUser = new User(userFromDb.username, userFromDb.password, userFromDb.balance, userFromDb.isSuspended);
         validclsUser->transactions = userFromDb.transactions;
         return validclsUser;
     }
@@ -118,6 +118,10 @@ bool User::isSameUser(const string& otherUser) const
 
 bool User::sendMoney(const string& recipientUsername, double amount, const string& note) {
 
+    if (this->isSuspended) {
+        return false;
+    }
+
     if (!canSendMoney(amount)) {
         return false;
     }
@@ -125,6 +129,10 @@ bool User::sendMoney(const string& recipientUsername, double amount, const strin
     Database db;
     User recipient = db.getUser(recipientUsername);
     if (recipient.username == "") {
+        return false;
+    }
+
+    if (recipient.isSuspended) {
         return false;
     }
 

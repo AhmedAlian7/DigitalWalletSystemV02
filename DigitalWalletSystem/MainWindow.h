@@ -4,6 +4,11 @@
 #include "ui_MainWindow.h"
 #include "clsTransaction.h"
 #include "clsUser.h"
+#include "DigitalWalletSystem.h"
+
+namespace Ui {
+    class MainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
@@ -16,7 +21,11 @@ public:
 	~MainWindow();
 
 	void loadRecentTransactions(int transactionCount = 3);
+	void loadAllTransactions();
     void loadUserInfo();
+
+    // Add method to set parent DigitalWalletSystem reference
+    void setDigitalWalletSystem(DigitalWalletSystem* system);
 
 
 private slots:
@@ -29,14 +38,16 @@ private slots:
     void on_requestMoneyButton_clicked();
     void on_pendingRequestsButton_clicked();
 
+    void on_btnChangePass_clicked();
+
 
 
 private:
 
     User* currentUser;
+    DigitalWalletSystem* walletSystem;
 
-
-	Ui::MainWindowClass ui;
+    Ui::MainWindowClass ui;
 
     // Keep track of active button in sidebar
     QPushButton* activeButton;
@@ -48,4 +59,5 @@ private:
     QWidget* createTransactionWidget(const QString& title, const QString& date, const QString& amount, bool isSent);
 
     bool isSentTransation(Transaction t);
+
 };

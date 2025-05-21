@@ -15,7 +15,7 @@ public:
 
     void showLoginForm();
     void showRegisterForm();
-
+    void logout();
 private:
     Ui::DigitalWalletSystemClass ui;
 
@@ -23,3 +23,4 @@ private:
     widgetLogin* loginForm = nullptr;
     RegisterForm* registerForm = nullptr;
 };
+

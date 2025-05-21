@@ -72,6 +72,7 @@ void widgetLogin::pushLogin_Clicked() {
             this->close();
         }
         MainWindow* mainAppWindow = new MainWindow(user);
+        mainAppWindow->setDigitalWalletSystem(mainWindow);
         mainAppWindow->show();
     }
     else {
@@ -84,4 +85,13 @@ void widgetLogin::pushLogin_Clicked() {
 
 void widgetLogin::setMainWindow(DigitalWalletSystem* mw) {
     mainWindow = mw;
+}
+
+void widgetLogin::clearFormFields()
+{
+    ui.m_usernameEdit->clear();
+
+    ui.m_passwordEdit->clear();
+
+    ui.m_usernameEdit->setFocus();
 }
