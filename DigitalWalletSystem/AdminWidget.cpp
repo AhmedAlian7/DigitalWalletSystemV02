@@ -356,16 +356,11 @@ void AdminWidget::onViewTransactions(int row) {
     QTableWidgetItem* item = ui.tableWidget->item(row, 0);
     QString username = item->text();
 
-    // Allocate user on the heap to avoid dangling pointer
     User* u = new User(db.getUser(username.toStdString()));
 
-    // Create the transactions dialog
     UserTransactions* Transactions = new UserTransactions(u, this);
 
-    // Load the transactions before showing the dialog
     Transactions->LoadallTransactions();
-
-    // Show the dialog
     Transactions->show();
 
 
