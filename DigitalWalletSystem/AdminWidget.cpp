@@ -64,9 +64,6 @@ void AdminWidget::onTransactionClicked() {
 }
 
 
-
-
-
 void AdminWidget::loadAllTransactions() {
     Database db;
     std::list<Transaction> transactions = db.getAllTransactions();
@@ -148,7 +145,6 @@ QWidget* AdminWidget::createTransactionWidgets(const QString& sender, const QStr
     QLabel* amountLabel = new QLabel("$" + amount);
     amountLabel->setStyleSheet("color: #3498db; font-weight: bold; font-size: 13px;");
     amountLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
-    /
     amountLabel->setMinimumWidth(70);
 
     
