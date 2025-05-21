@@ -51,8 +51,12 @@ void RegisterForm::onRegisterButtonClicked()
         ui->passwordEdit->clear();
         ui->confirmPasswordEdit->clear();
 
-        // Optionally switch to sign in form
-        emit switchToSignIn();
+        // Automatically switch to login form after successful registration
+        if (mainWindow) {
+            // Use the onSignInLinkClicked which already has the proper implementation
+            // to switch to the login form
+            onSignInLinkClicked();
+        }
     }
 }
 

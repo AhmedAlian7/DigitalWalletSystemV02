@@ -2,6 +2,7 @@
 #include "ui_SendMoneyForm.h"
 #include "clsUser.h"
 #include <QMessageBox>
+#include <clsDatabase.h>
 
 
 SendMoneyForm::SendMoneyForm(QWidget *parent)
@@ -43,6 +44,19 @@ void SendMoneyForm::on_sendNowButton_clicked()
     QString recipientUsername = ui.lineEditUsername->text().trimmed();
     double amount = ui.doubleSpinBoxAmount->value();
     QString note = ui.lineEditNote->text().trimmed();
+
+
+    if (m_currentUser->isSuspended) {
+        QMessageBox::warning(this, "User Suspended",
+            "You cannot perform any transaction because you are suspended, contact your admin.");
+        return;
+    }
+    Database db; User recipient = db.getUser(recipientUsername.toStdString());
+    if (recipient.isSuspended) {
+        QMessageBox::warning(this, "Recipient Suspended",
+            "You are trying to perform a transaction with a suspended user");
+        return;
+    }
 
     if (!m_currentUser->canSendMoney(amount)) {
         QMessageBox::warning(this, "Insufficient Funds",

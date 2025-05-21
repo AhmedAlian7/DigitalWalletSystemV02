@@ -1209,7 +1209,7 @@ QPushButton:hover {
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Dashboard">
      <widget class="QFrame" name="balanceCard">
@@ -1892,6 +1892,42 @@ font: 10pt;</string>
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QListWidget" name="listTransactions_all">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>120</y>
+        <width>831</width>
+        <height>481</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="pageTitle_21">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>80</y>
+        <width>261</width>
+        <height>36</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Segoe UI</family>
+        <pointsize>16</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: white;</string>
+      </property>
+      <property name="text">
+       <string>All Transactions</string>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="Profile">

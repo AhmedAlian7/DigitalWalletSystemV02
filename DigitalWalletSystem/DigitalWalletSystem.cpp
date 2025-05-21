@@ -21,6 +21,10 @@ void DigitalWalletSystem::showLoginForm() {
         loginForm = new widgetLogin(this);
         loginForm->setMainWindow(this);
     }
+    else {
+        // Clear the form fields if the login form already exists
+        loginForm->clearFormFields();
+    }
 
     setCentralWidget(loginForm);
     loginForm->show();
@@ -56,4 +60,9 @@ void widgetLogin::onRegisterLinkClicked() {
     if (mainWindow) {
         mainWindow->showRegisterForm();
     }
+}
+
+
+void DigitalWalletSystem::logout() {
+    showLoginForm();
 }
