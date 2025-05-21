@@ -112,6 +112,7 @@
     <ClCompile Include="requestCard.cpp" />
     <ClCompile Include="RequestMoneyCLass.cpp" />
     <ClCompile Include="SendMoneyForm.cpp" />
+    <ClCompile Include="UserTransactions.cpp" />
     <ClCompile Include="widgetLogin.cpp" />
     <QtRcc Include="DigitalWalletSystem.qrc" />
     <QtUic Include="AddWidget.ui" />
@@ -127,12 +128,14 @@
     <QtUic Include="requestCard.ui" />
     <QtUic Include="RequestMoneyCLass.ui" />
     <QtUic Include="SendMoneyForm.ui" />
+    <QtUic Include="UserTransactions.ui" />
     <QtUic Include="widgetLogin.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="widgetLogin.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtMoc Include="UserTransactions.h" />
     <QtMoc Include="requestCard.h" />
     <QtMoc Include="PendingMoneyRequests.h" />
     <QtMoc Include="RequestMoneyCLass.h" />

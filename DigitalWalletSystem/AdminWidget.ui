@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
-    <height>536</height>
+    <width>1051</width>
+    <height>558</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -226,10 +226,10 @@ QPushButton:hover {
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>-20</y>
-      <width>881</width>
-      <height>591</height>
+      <x>230</x>
+      <y>0</y>
+      <width>871</width>
+      <height>581</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -304,49 +304,24 @@ QPushButton:hover {
           <string notr="true">color: white;</string>
          </property>
          <property name="text">
-          <string>My Balance</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="searchBox_2">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-radius: 12px;
-background-color: #f5f5f5;
-color: black;
-font: 10pt;</string>
-         </property>
-         <property name="placeholderText">
-          <string>Search...</string>
+          <string>Users Transactions</string>
          </property>
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QListWidget" name="listTransactions">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>501</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::FocusPolicy::NoFocus</enum>
+      </property>
      </widget>
     </widget>
     <widget class="QWidget" name="Transactions">
@@ -374,44 +349,6 @@ font: 10pt;</string>
          </property>
          <property name="text">
           <string>Transactions</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_5">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="searchBox_5">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-radius: 12px;
-background-color: #f5f5f5;
-color: black;
-font: 10pt;</string>
-         </property>
-         <property name="placeholderText">
-          <string>Search...</string>
          </property>
         </widget>
        </item>
@@ -563,7 +500,7 @@ font: 10pt;</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>824</width>
+     <width>1051</width>
      <height>21</height>
     </rect>
    </property>

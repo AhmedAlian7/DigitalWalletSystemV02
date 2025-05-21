@@ -1209,7 +1209,7 @@ QPushButton:hover {
      <string notr="true"/>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="Dashboard">
      <widget class="QFrame" name="balanceCard">
@@ -1368,38 +1368,6 @@ QPushButton:hover {
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="searchBox">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-radius: 12px;
-background-color: #f5f5f5;
-color: black;
-font: 10pt;
-text-align:5px</string>
-         </property>
-         <property name="inputMask">
-          <string/>
-         </property>
-         <property name="frame">
-          <bool>false</bool>
-         </property>
-         <property name="placeholderText">
-          <string>Search...</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -1865,31 +1833,6 @@ QPushButton:hover {
           </size>
          </property>
         </spacer>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="searchBox_5">
-         <property name="minimumSize">
-          <size>
-           <width>200</width>
-           <height>30</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>300</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="styleSheet">
-          <string notr="true">border-radius: 12px;
-background-color: #f5f5f5;
-color: black;
-font: 10pt;</string>
-         </property>
-         <property name="placeholderText">
-          <string>Search...</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>

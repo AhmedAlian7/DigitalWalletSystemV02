@@ -27,10 +27,10 @@ MainWindow::MainWindow(User* currentUser, QWidget *parent)
     connect(ui.logoutButton, &QPushButton::clicked, this, &MainWindow::on_logoutButton_clicked);
               
     // Connect.ction buttons
-    connect(ui.sendMoneyButton, &QPushButton::clicked, this, &MainWindow::on_sendMoneyButton_clicked);
-    connect(ui.requestMoneyButton, &QPushButton::clicked, this, &MainWindow::on_requestMoneyButton_clicked);
+    connect(ui.sendMoneyButton, &QPushButton::clicked, this, &MainWindow::onsendMoneyButtonclicked);
+    connect(ui.requestMoneyButton, &QPushButton::clicked, this, &MainWindow::onrequestMoneyButtonclicked);
     connect(ui.PendingRequestsButton, &QPushButton::clicked, this, &MainWindow::on_pendingRequestsButton_clicked);
-    connect(ui.btnChangePass, &QPushButton::clicked, this, &MainWindow::on_btnChangePass_clicked);
+    connect(ui.btnChangePass, &QPushButton::clicked, this, &MainWindow::onbtnChangePassclicked);
 
 
     // Set Dashboard as default view
@@ -57,6 +57,9 @@ MainWindow::~MainWindow()
 bool MainWindow::isSentTransation(Transaction t) {
     return currentUser->username == t.sender;
 }
+
+
+
 
 void MainWindow::loadRecentTransactions(int transactionCount) {
     ui.listTransactions->clear(); // QListWidget
@@ -270,7 +273,7 @@ void MainWindow::on_logoutButton_clicked()
 
                                             // Action button slot implementations
 
-void MainWindow::on_sendMoneyButton_clicked()
+void MainWindow::onsendMoneyButtonclicked()
 {
     // QMessageBox::information(this, "Not Implemented Yet!", "This will open a send money widget");
 
@@ -289,7 +292,7 @@ void MainWindow::on_sendMoneyButton_clicked()
 }
 
 
-void MainWindow::on_requestMoneyButton_clicked()
+void MainWindow::onrequestMoneyButtonclicked()
 {
     //QMessageBox::information(this, "Not Implemented Yet!", "This will open a request money widget");
 
@@ -317,7 +320,7 @@ void MainWindow::on_pendingRequestsButton_clicked()
     delete sendMoneyDialog;
 }
 
-void MainWindow::on_btnChangePass_clicked() {
+void MainWindow::onbtnChangePassclicked() {
     ChangePass* changePassDialog = new ChangePass(currentUser, this);
     changePassDialog->exec();
 
