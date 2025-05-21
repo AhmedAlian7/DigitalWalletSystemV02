@@ -254,7 +254,7 @@ void MainWindow::on_profileButton_clicked()
 
     ui.lineEditUsername->setText(QString::fromStdString(currentUser->username));
     ui.usernameLabel->setText(QString::fromStdString(currentUser->username));
-    ui.avatarLabel->setText(QString::fromStdString(currentUser->username).left(1));
+    ui.avatarLabel->setText(QString::fromStdString(currentUser->username).left(1).toUpper());
 }
 
 void MainWindow::on_logoutButton_clicked()

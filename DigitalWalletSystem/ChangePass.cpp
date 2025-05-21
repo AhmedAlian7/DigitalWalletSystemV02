@@ -1,6 +1,7 @@
 #include "ChangePass.h"
 #include <qmessagebox.h>
 #include <clsDatabase.h>
+#include "Utilities/cslUtil.h"
 
 ChangePass::ChangePass(User* user, QWidget* parent)
     : QDialog(parent)
@@ -21,7 +22,6 @@ void ChangePass::on_btnConfirm_Clicked() {
 
     if (validateForm()) {
         QString newPassword = ui.lineEdit_NewPass->text();
-        
         m_currentUser->password = newPassword.toStdString();
         Database db;
         db.updateUser(*m_currentUser);
