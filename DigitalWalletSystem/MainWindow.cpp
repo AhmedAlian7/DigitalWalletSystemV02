@@ -66,13 +66,6 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
         if (transactions.empty()) return;
 
 
-
-
-
-
-
-
-
         int count = 0;
         for (auto it = transactions.rbegin(); it != transactions.rend() && count < transactionCount; ++it, ++count) {
             const Transaction& t = *it;
@@ -104,14 +97,6 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
     else {
         qDebug() << "Warning: currentUser is null in loadRecentTransactions()";
     }
-
-
-
-
-
-
-
-
 
 
 }
