@@ -16,6 +16,7 @@
 #include "Utilities/cslUtil.h"
 #include <QGraphicsDropShadowEffect>
 #include <DigitalWalletSystem.h>
+#include "UserTransactions.h"
 
 
   
@@ -48,6 +49,7 @@ AdminWidget::AdminWidget(QWidget *parent)
     connect(ui.btnSave, &QPushButton::clicked, this, &AdminWidget::saveChanges);
     connect(ui.transactionsButton, &QPushButton::clicked, this, &AdminWidget::onTransactionClicked);
     connect(ui.btnUsers, &QPushButton::clicked, this, &AdminWidget::onUsersClicked);
+    connect(ui.logoutButton, &QPushButton::clicked, this, &AdminWidget::onLogoutButtonClicked);
 
 }
 
@@ -145,6 +147,7 @@ QWidget* AdminWidget::createTransactionWidgets(const QString& sender, const QStr
     QLabel* amountLabel = new QLabel("$" + amount);
     amountLabel->setStyleSheet("color: #3498db; font-weight: bold; font-size: 13px;");
     amountLabel->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+    
     amountLabel->setMinimumWidth(70);
 
     
@@ -341,10 +344,35 @@ void AdminWidget::onDeleteUser(int row) {
     loadUsersToTable();
 
 }
+
+
+
 void AdminWidget::onViewTransactions(int row) {
 
- 
+    Database db;
+
+    QTableWidgetItem* item = ui.tableWidget->item(row, 0);
+    QString username = item->text();
+
+    User* u = new User(db.getUser(username.toStdString()));
+
+    UserTransactions* Transactions = new UserTransactions(u, this);
+
+    Transactions->LoadallTransactions();
+    Transactions->show();
+
+
+
 }
+
+
+
+void AdminWidget::onLogoutButtonClicked()
+{
+    this->close();
+
+}
+
 
 AdminWidget::~AdminWidget()
 {

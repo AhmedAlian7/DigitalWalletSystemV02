@@ -27,10 +27,10 @@ MainWindow::MainWindow(User* currentUser, QWidget *parent)
     connect(ui.logoutButton, &QPushButton::clicked, this, &MainWindow::on_logoutButton_clicked);
               
     // Connect.ction buttons
-    connect(ui.sendMoneyButton, &QPushButton::clicked, this, &MainWindow::on_sendMoneyButton_clicked);
-    connect(ui.requestMoneyButton, &QPushButton::clicked, this, &MainWindow::on_requestMoneyButton_clicked);
+    connect(ui.sendMoneyButton, &QPushButton::clicked, this, &MainWindow::onsendMoneyButtonclicked);
+    connect(ui.requestMoneyButton, &QPushButton::clicked, this, &MainWindow::onrequestMoneyButtonclicked);
     connect(ui.PendingRequestsButton, &QPushButton::clicked, this, &MainWindow::on_pendingRequestsButton_clicked);
-    connect(ui.btnChangePass, &QPushButton::clicked, this, &MainWindow::on_btnChangePass_clicked);
+    connect(ui.btnChangePass, &QPushButton::clicked, this, &MainWindow::onbtnChangePassclicked);
 
 
     // Set Dashboard as default view
@@ -58,6 +58,9 @@ bool MainWindow::isSentTransation(Transaction t) {
     return currentUser->username == t.sender;
 }
 
+
+
+
 void MainWindow::loadRecentTransactions(int transactionCount) {
     ui.listTransactions->clear(); // QListWidget
 
@@ -78,6 +81,7 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
                     "Sent to " + QString::fromStdString(t.receiver),
                     t.date.toString("yyyy-MM-dd hh:mm:ss"),
                     "-$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
+                    QString::fromStdString(t.note),
                     true
                 );
             }
@@ -86,6 +90,7 @@ void MainWindow::loadRecentTransactions(int transactionCount) {
                     "Received from " + QString::fromStdString(t.sender),
                     t.date.toString("yyyy-MM-dd hh:mm:ss"),
                     "+$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
+                    QString::fromStdString(t.note),
                     false
                 );
             }
@@ -118,6 +123,7 @@ void MainWindow::loadAllTransactions() {
                     "Sent to " + QString::fromStdString(t.receiver),
                     t.date.toString("yyyy-MM-dd hh:mm:ss"),
                     "-$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
+                    QString::fromStdString(t.note),
                     true
                 );
             }
@@ -126,6 +132,7 @@ void MainWindow::loadAllTransactions() {
                     "Received from " + QString::fromStdString(t.sender),
                     t.date.toString("yyyy-MM-dd hh:mm:ss"),
                     "+$" + QString::fromStdString(clsUtil::doubleToString(t.amount)),
+                    QString::fromStdString(t.note),
                     false
                 );
             }
@@ -178,7 +185,7 @@ void MainWindow::setActiveButton(QPushButton* button)
     activeButton = button;
 }
 
-QWidget* MainWindow::createTransactionWidget(const QString& title, const QString& date, const QString& amount, bool isSent)
+QWidget* MainWindow::createTransactionWidget(const QString& title, const QString& date, const QString& amount, const QString& note, bool isSent)
 {
     QWidget* widget = new QWidget();
     QHBoxLayout* layout = new QHBoxLayout(widget);
@@ -202,19 +209,29 @@ QWidget* MainWindow::createTransactionWidget(const QString& title, const QString
     iconLabel->setPixmap(arrowPixmap.scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation));
     iconLayout->addWidget(iconLabel);
 
-    // Create text layout
-    QVBoxLayout* textLayout = new QVBoxLayout();
-    textLayout->setSpacing(2);
+    // Create left side layout for title and date
+    QVBoxLayout* leftLayout = new QVBoxLayout();
+    leftLayout->setSpacing(2);
 
     // Title and date labels
     QLabel* titleLabel = new QLabel(title);
     titleLabel->setStyleSheet("font-weight: bold; font-size: 14px;");
-
     QLabel* dateLabel = new QLabel(date);
     dateLabel->setStyleSheet("color: #888; font-size: 12px;");
+    leftLayout->addWidget(titleLabel);
+    leftLayout->addWidget(dateLabel);
 
-    textLayout->addWidget(titleLabel);
-    textLayout->addWidget(dateLabel);
+    // Center layout for note
+    QVBoxLayout* centerLayout = new QVBoxLayout();
+    centerLayout->setAlignment(Qt::AlignVCenter);
+
+    // Note label (centered)
+    QLabel* noteLabel = new QLabel(note.isEmpty() ? "" : note);
+    noteLabel->setStyleSheet("color: #555; font-size: 12px; font-style: italic;");
+    noteLabel->setWordWrap(true);
+    noteLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+    noteLabel->setAlignment(Qt::AlignCenter);
+    centerLayout->addWidget(noteLabel);
 
     // Amount label
     QLabel* amountLabel = new QLabel(amount);
@@ -226,7 +243,8 @@ QWidget* MainWindow::createTransactionWidget(const QString& title, const QString
     // Add widgets to main layout
     layout->addWidget(iconContainer);
     layout->addSpacing(10);
-    layout->addLayout(textLayout, 1);
+    layout->addLayout(leftLayout);
+    layout->addLayout(centerLayout, 1); // Note takes up available space
     layout->addWidget(amountLabel);
 
     return widget;
@@ -254,7 +272,10 @@ void MainWindow::on_profileButton_clicked()
 
     ui.lineEditUsername->setText(QString::fromStdString(currentUser->username));
     ui.usernameLabel->setText(QString::fromStdString(currentUser->username));
-    ui.avatarLabel->setText(QString::fromStdString(currentUser->username).left(1));
+    ui.avatarLabel->setText(QString::fromStdString(currentUser->username).left(1).toUpper());
+    ui.suspendedBadgeLabel->setVisible(currentUser->isSuspended);
+    ui.activeBadgeLabel->setVisible(!currentUser->isSuspended);
+    
 }
 
 void MainWindow::on_logoutButton_clicked()
@@ -270,7 +291,7 @@ void MainWindow::on_logoutButton_clicked()
 
                                             // Action button slot implementations
 
-void MainWindow::on_sendMoneyButton_clicked()
+void MainWindow::onsendMoneyButtonclicked()
 {
     // QMessageBox::information(this, "Not Implemented Yet!", "This will open a send money widget");
 
@@ -289,16 +310,14 @@ void MainWindow::on_sendMoneyButton_clicked()
 }
 
 
-void MainWindow::on_requestMoneyButton_clicked()
+void MainWindow::onrequestMoneyButtonclicked()
 {
     //QMessageBox::information(this, "Not Implemented Yet!", "This will open a request money widget");
 
     RequestMoneyCLass* sendMoneyDialog = new RequestMoneyCLass(this);
     sendMoneyDialog->setCurrentUser(currentUser);
 
-    connect(sendMoneyDialog, &RequestMoneyCLass::transactionCompleted, this, [this]() {
-        loadUserInfo();
-        });
+    connect(sendMoneyDialog, &RequestMoneyCLass::transactionCompleted, this, &MainWindow::loadUserInfo);
 
     sendMoneyDialog->exec();
 
@@ -317,7 +336,7 @@ void MainWindow::on_pendingRequestsButton_clicked()
     delete sendMoneyDialog;
 }
 
-void MainWindow::on_btnChangePass_clicked() {
+void MainWindow::onbtnChangePassclicked() {
     ChangePass* changePassDialog = new ChangePass(currentUser, this);
     changePassDialog->exec();
 

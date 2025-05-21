@@ -34,11 +34,11 @@ private slots:
     void on_profileButton_clicked();
     void on_logoutButton_clicked();
 
-    void on_sendMoneyButton_clicked();
-    void on_requestMoneyButton_clicked();
+    void onsendMoneyButtonclicked();
+    void onrequestMoneyButtonclicked();
     void on_pendingRequestsButton_clicked();
 
-    void on_btnChangePass_clicked();
+    void onbtnChangePassclicked();
 
 
 
@@ -56,7 +56,7 @@ private:
     void setActiveButton(QPushButton* button);
 
     // Create a transaction widget for the list
-    QWidget* createTransactionWidget(const QString& title, const QString& date, const QString& amount, bool isSent);
+    QWidget* createTransactionWidget(const QString& title, const QString& date, const QString& amount, const QString& note, bool isSent);
 
     bool isSentTransation(Transaction t);
 

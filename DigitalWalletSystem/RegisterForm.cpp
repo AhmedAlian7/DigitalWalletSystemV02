@@ -30,7 +30,7 @@ void RegisterForm::onRegisterButtonClicked()
     if (validateForm()) {
         QString username = ui->usernameEdit->text();
         QString password = ui->passwordEdit->text();
-        User user(username.toStdString(), password.toStdString());
+        User user(username.toStdString(), password.toStdString(), 500.0, false);
         Database db;
         if (!db.addUser(user)) {
             QMessageBox::warning(this, "Registration Failed",

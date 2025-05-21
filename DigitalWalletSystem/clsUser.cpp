@@ -17,19 +17,11 @@ User::User() {
     isSuspended = false; // Default to not suspended
 }
 
-User::User(string name, string pass) {
-    username = name, password = pass;
-    balance = 500.0; // Register bonus signup get 500 pound for free "i made that doctor to test that we check for upper limit for transaction"
-    transactions = { };
-    isSuspended = false;
+User::User(string name, string pass)
+    : _username(name), _password(pass), _balance(500.0), _transactions({}), _isSuspended(false) {
+
 }
 
-User::User(string name, string pass, double bal, bool isSus) {
-    username = name, password = pass;
-    balance = bal;
-    transactions = { };
-    isSuspended = isSus;
-}
 
 User::~User() {
 }

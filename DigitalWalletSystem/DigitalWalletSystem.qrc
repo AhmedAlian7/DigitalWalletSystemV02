@@ -12,5 +12,6 @@
         <file>icons/User Male.png</file>
         <file>icons/Wallet.png</file>
         <file>icons/Wallet1.png</file>
+        <file>icons/ewallet.ico</file>
     </qresource>
 </RCC>

@@ -6,10 +6,13 @@
 
 int main(int argc, char* argv[])
 {
+
+
     QApplication app(argc, argv);
 
     DigitalWalletSystem mainWindow;
     mainWindow.setFixedSize(500, 600);
+    app.setWindowIcon(QIcon(":/DigitalWalletSystem/icons/ewallet.ico"));
     mainWindow.show();
 
 
