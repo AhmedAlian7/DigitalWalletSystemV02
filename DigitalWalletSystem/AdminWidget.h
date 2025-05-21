@@ -3,7 +3,7 @@
 #include <QMainWindow>
 #include "ui_AdminWidget.h"
 #include "clsTransaction.h"
-
+#include"DigitalWalletSystem.h"
 
 class AdminWidget : public QMainWindow
 {
@@ -33,7 +33,7 @@ public:
 	void onViewTransactions(int row);
 	void onTransactionClicked();
 	void onUsersClicked();
-
+	void onLogoutButtonClicked();
 
 	void loadUsersToTable();
 
@@ -43,4 +43,6 @@ public:
 
 private:
 	Ui::AdminWidgetClass ui;
+	
+
 };

@@ -49,6 +49,7 @@ AdminWidget::AdminWidget(QWidget *parent)
     connect(ui.btnSave, &QPushButton::clicked, this, &AdminWidget::saveChanges);
     connect(ui.transactionsButton, &QPushButton::clicked, this, &AdminWidget::onTransactionClicked);
     connect(ui.btnUsers, &QPushButton::clicked, this, &AdminWidget::onUsersClicked);
+    connect(ui.logoutButton, &QPushButton::clicked, this, &AdminWidget::onLogoutButtonClicked);
 
 }
 
@@ -369,7 +370,11 @@ void AdminWidget::onViewTransactions(int row) {
 
 
 
+void AdminWidget::onLogoutButtonClicked()
+{
+    this->close();
 
+}
 
 
 AdminWidget::~AdminWidget()
