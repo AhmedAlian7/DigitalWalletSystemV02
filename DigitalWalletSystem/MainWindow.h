@@ -34,11 +34,11 @@ private slots:
     void on_profileButton_clicked();
     void on_logoutButton_clicked();
 
-    void on_sendMoneyButton_clicked();
-    void on_requestMoneyButton_clicked();
+    void onsendMoneyButtonclicked();
+    void onrequestMoneyButtonclicked();
     void on_pendingRequestsButton_clicked();
 
-    void on_btnChangePass_clicked();
+    void onbtnChangePassclicked();
 
 
 
